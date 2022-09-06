@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import word from "../commonWord/word";
+import axios from "../api/axios";
 
 const JoinPage = () => {
     const [nickname, setNickname] = useState("")
@@ -26,6 +27,32 @@ const JoinPage = () => {
         setEmail(e.target.value)
     }
 
+    const onSubmit = (e) => {
+        e.preventDefault()
+        console.log("회원가입")
+        postMember().then((response) => {
+            console.log(response)
+        })
+        console.log("회원가입 끝")
+
+    }
+
+    const postMember = async () => {
+        return await axios.post('/auth/join', {
+            email: email,
+            password: password,
+            memberId : memberId,
+            nickname: nickname
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+
     useEffect(() => {
         let result = []
         if (password === "") {
@@ -46,6 +73,10 @@ const JoinPage = () => {
         }
     }, [password])
     useEffect(() => {
+        if (password2 === "") {
+            setPasswordEqual(true)
+            return
+        }
         if (password2 !== password) {
             setPasswordEqual(false)
         } else {
@@ -114,7 +145,7 @@ const JoinPage = () => {
                     <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400">정보
                         처리 방침에 동의합니다. <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">전문 보기</a>.</label>
                 </div>
-                <button type="submit"
+                <button type="submit" onSubmit={onSubmit} onClick={onSubmit}
                         className="text-white bg-amber-300 hover:bg-amber-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">회원가입
                 </button>
             </form>
