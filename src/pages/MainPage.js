@@ -1,8 +1,10 @@
 import React from 'react';
 
-const MainPage = () => {
+const MainPage = ({isLogin,member}) => {
     return(
-        <div></div>
+        <div>
+            {JSON.stringify(member)}
+        </div>
     )
 }
 

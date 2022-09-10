@@ -1,0 +1,41 @@
+/* Footer.js Component CSS */
+.footer {
+    background-color: #f5f5f5;
+    padding: 20px 0;
+}
+
+.footer-logo {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.footer-logo img {
+    width: 75px;
+    height: 75px;
+}
+
+.footer-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-text {
+    font-size: 0.8rem;
+    color: #999;
+    text-align: center;
+}
+.footer-social-media-icon{
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 0.8rem;
+    color: #999;
+
+}
+
+.icon{
+    margin-right: 5px;
+
+}

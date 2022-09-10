@@ -12,7 +12,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.bg {
+  background-image: url('https://www.transparenttextures.com/patterns/brushed-alum-dark.png')
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
