@@ -78,7 +78,7 @@
 
 .signInBtn button, .signUpBtn button {
     font-size: 15px;
-    color: gray;
+    color: black;
 }
 
 .FaUser, .FaSignInAlt {
@@ -185,4 +185,16 @@ img {
 .class_review:hover {
     cursor: pointer;
     color:white;
+}
+
+.profile {
+    display:flex;
+    justify-content: space-between;
+    width: 23%;
+}
+
+
+.sellBtn:hover {
+    cursor: pointer;
+    color: white;
 }
