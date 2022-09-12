@@ -34,7 +34,6 @@ function App() {
     const [expireTime, setExpireTime] = useState(localStorage.getItem('tokenExpiresIn'))
 
     useEffect(() => { //로그인 처리
-        console.log(expireTime-Date.now())
         if (accessToken == null || expireTime == null || Date.now() >= expireTime) {
             logout(setIsLogin, setMember, setAccessToken, setExpireTime)
             setIsLogin(false)

@@ -1,13 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {getDepartments} from "../api/info";
-const MainPage = ({isLogin,member}) => {
-    const {data} = getDepartments();
-    console.log(data);
-    return(
-        <div>
-            {data}
-        </div>
-    )
+
+const MainPage = ({isLogin, member}) => {
+    return (<div>
+        <span className="text-6xl">{0}</span>
+    </div>)
 }
 
 export default MainPage
