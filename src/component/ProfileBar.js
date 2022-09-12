@@ -15,12 +15,12 @@ const ProfileBar = ({member,isLogin})=>{
               </div>
                 <div className='profile'>
                   {isLogin ? <span>
-                                <span style={{margin: '0 5px'}}>프로필 이미지</span>
-                                <span style={{fontSize: '12px'}}>
-                                    {member.nickname}님
-                                </span>
+                        <span>프로필 이미지</span>
+                            <span style={{fontSize:'12px'}}>   {member.nickname}
+                                <span></span>
+                            </span>
                     </span> : ''}
-                    <span  className='sellBtn'>판매내역</span>
+                    <span>판매내역</span>
                 </div>
               </div>    
             </div>
