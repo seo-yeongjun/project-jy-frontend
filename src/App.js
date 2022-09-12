@@ -12,10 +12,10 @@ import axios from "./api/axios";
 
 
 
-const Layout = ({isLogin, logoutHandler}) => {
+const Layout = ({isLogin, logoutHandler,member}) => {
     return (<div>
          <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
-        <ProfileBar/>
+        <ProfileBar member={member} isLogin={isLogin}/>
          {/* <Header isLogin={isLogin} logoutHandler={logoutHandler}/> */}
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
             <div className="pt-48 pb-24">
@@ -33,7 +33,7 @@ function App() {
     const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'))
     const [expireTime, setExpireTime] = useState(localStorage.getItem('tokenExpiresIn'))
 
-    useEffect(() => {
+    useEffect(() => { //로그인 처리
         console.log(expireTime-Date.now())
         if (accessToken == null || expireTime == null || Date.now() >= expireTime) {
             logout(setIsLogin, setMember, setAccessToken, setExpireTime)
@@ -50,7 +50,7 @@ function App() {
 
     return (<div className="App">
         <Routes>
-            <Route path="/" element={<Layout isLogin={isLogin} logoutHandler={logoutHandler}/>}>
+            <Route path="/" element={<Layout isLogin={isLogin} logoutHandler={logoutHandler} member={member}/>}>
                 <Route index element={<MainPage isLogin={isLogin} member={member}/>}></Route>
                 <Route path="login" element={<LoginPage setIsLogin={setIsLogin} setExpireTime={setExpireTime}
                                                         setAccessToken={setAccessToken}/>}></Route>
