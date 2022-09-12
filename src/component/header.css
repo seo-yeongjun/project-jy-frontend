@@ -168,11 +168,10 @@ img {
     width: 100%;
     background-color: #BBB9B9;
     position:fixed;
-    top:5rem;
+    top:5rem; 
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .bar {
