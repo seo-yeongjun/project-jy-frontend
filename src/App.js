@@ -1,6 +1,8 @@
 import './App.css';
 import {Outlet, Route, Routes} from "react-router";
-import Header from './component/Header'
+import MobileHeader from './component/MobileHeader';
+import Header from './component/Header';
+import ProfileBar from './component/ProfileBar';
 import Footer from './component/Footer'
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
@@ -10,16 +12,36 @@ import {getMemberInfo, logout} from "./api/auth";
 import axios from "./api/axios";
 
 
+
 const Layout = ({isLogin, logoutHandler}) => {
+
+    const [windowSize, setWindowSize] = useState(window.innerWidth);
+
+    const handleResize = ()=>{
+        setWindowSize(window.innerWidth);
+    }
+
+    useEffect(()=>{
+        window.addEventListener('resize',handleResize)
+    },[windowSize])
+
     return (<div>
-        <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
+        
+        {(windowSize < 768)
+         ? <MobileHeader isLogin={isLogin} logoutHandler={logoutHandler}/>
+         : <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
+        }
+
+        <ProfileBar/>
+
+         {/* <Header isLogin={isLogin} logoutHandler={logoutHandler}/> */}
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
             <div className="pt-48 pb-24">
                 <Outlet/>
             </div>
         </div>
         <Footer/>
-    </div>)
+    </div> )
 
 }
 

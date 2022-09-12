@@ -1,27 +1,20 @@
 import React from 'react';
-import './header.css';
+import './header.css'
 import {FaSearch} from 'react-icons/fa';
 import {useNavigate} from "react-router";
 
-const Header = ({isLogin,logoutHandler}) => {
+const MobileHeader = ({isLogin,logoutHandler})=>{
     const navigate = useNavigate();
-    
-    return (
+        return (
+            <header className='mobile_header'>
+                <div className='mobile_upperPart'>
+                    <div onClick={() => navigate('/')}>
+                        <button>
+                        <img className="logo" src="/img/logo-width.svg" alt="logo"/>
+                        </button>
+                    </div>
 
-        <div className="header">
-            <div>
-                <button onClick={() => navigate('/')}><img className="logo" src="/img/logo-width.svg"
-                                                           alt="logo"/>
-                </button>
-            </div>
-            <div className='searchInput'>
-                <input className='searchInput_input'/>
-                <button className='searchInput-btn'><FaSearch/></button>
-            </div>
-
-
-            <div>
-                <div className='userSection'>
+                    <div className='mobile_userSection'>
                     <div className='signInBtn'>
                         {/* <FaUser className='FaUser' /> */}
                         {!isLogin &&   <button className="hover:cursor-pointer" onClick={() => navigate('/login')}>로그인</button>}
@@ -34,8 +27,15 @@ const Header = ({isLogin,logoutHandler}) => {
                     </div>
                 </div>
             </div>
+        <div className='mobile_lowerPart'>
+            <div className='mobile_searchInput'>
+                <input className='mobile_searchInput_input'/>
+                <button className='mobile_searchInput-btn'><FaSearch/></button>
+            </div>
         </div>
-    )
-    }
+            </header>
+        ) 
+  
+}
 
-export default Header
+export default MobileHeader;
