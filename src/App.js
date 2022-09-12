@@ -1,6 +1,5 @@
 import './App.css';
 import {Outlet, Route, Routes} from "react-router";
-import MobileHeader from './component/MobileHeader';
 import Header from './component/Header';
 import ProfileBar from './component/ProfileBar';
 import Footer from './component/Footer'
@@ -14,26 +13,9 @@ import axios from "./api/axios";
 
 
 const Layout = ({isLogin, logoutHandler}) => {
-
-    const [windowSize, setWindowSize] = useState(window.innerWidth);
-
-    const handleResize = ()=>{
-        setWindowSize(window.innerWidth);
-    }
-
-    useEffect(()=>{
-        window.addEventListener('resize',handleResize)
-    },[windowSize])
-
     return (<div>
-        
-        {(windowSize < 768)
-         ? <MobileHeader isLogin={isLogin} logoutHandler={logoutHandler}/>
-         : <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
-        }
-
+         <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
         <ProfileBar/>
-
          {/* <Header isLogin={isLogin} logoutHandler={logoutHandler}/> */}
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
             <div className="pt-48 pb-24">
