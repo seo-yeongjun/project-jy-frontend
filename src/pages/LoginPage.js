@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import word from "../commonWord/word";
 import {login} from "../api/auth";
+import {useNavigate} from "react-router";
 
-const LoginPage = ({setIsLogin,setExpireTime,setAccessToken}) => {
+const LoginPage = ({setIsLogin, setExpireTime, setAccessToken}) => {
     const [memberId, setMemberId] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate();
 
     const memberIdHandler = (e) => {
         setMemberId(e.target.value)
@@ -12,13 +14,13 @@ const LoginPage = ({setIsLogin,setExpireTime,setAccessToken}) => {
     const passwordHandler = (e) => {
         setPassword(e.target.value)
     }
-
     const onSubmit = (e) => {
         e.preventDefault()
         login(memberId, password).then(() => {
             setIsLogin(true)
             setAccessToken(localStorage.getItem('accessToken'))
             setExpireTime(localStorage.getItem('tokenExpiresIn'))
+            navigate(-1)
         }).catch(() => {
             console.log("로그인 실패")
         })
