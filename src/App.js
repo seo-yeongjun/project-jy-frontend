@@ -1,28 +1,39 @@
 import './App.css';
-import {Outlet, Route, Routes} from "react-router";
+import {Outlet, Route, Routes, useLocation} from "react-router";
 import Header from './component/Header';
 import ProfileBar from './component/ProfileBar';
 import Footer from './component/Footer'
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
+import SalePage from "./pages/SalePage";
 import React, {useEffect, useState} from "react";
 import {getMemberInfo, logout} from "./api/auth";
 import axios from "./api/axios";
+import ScrollToTop from "./component/ScrollToTop";
 
 
+<<<<<<< HEAD
 
 const Layout = ({member, isLogin, logoutHandler}) => {
     return (<div>
          <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
          <ProfileBar member={member} isLogin={isLogin}/>
+=======
+const Layout = ({isLogin, logoutHandler, member}) => {
+    const path = useLocation()
+    return (<div>
+        <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
+        <ProfileBar member={member} isLogin={isLogin}/>
+        {/* <Header isLogin={isLogin} logoutHandler={logoutHandler}/> */}
+>>>>>>> ce27471e79678b2210b3cf81c060b24a3a8fb217
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
-            <div className="pt-48 pb-24">
+            <div className={path.pathname === '/' ? 'pt-32' : 'pt-48' + ' pb-24'}>
                 <Outlet/>
             </div>
         </div>
         <Footer/>
-    </div> )
+    </div>)
 
 }
 
@@ -47,14 +58,17 @@ function App() {
     const logoutHandler = () => logout(setIsLogin, setMember, setAccessToken, setExpireTime);
 
     return (<div className="App">
+        <ScrollToTop>
         <Routes>
-            <Route path="/" element={<Layout isLogin={isLogin} logoutHandler={logoutHandler} member={member}/>}>
-                <Route index element={<MainPage isLogin={isLogin} member={member}/>}></Route>
-                <Route path="login" element={<LoginPage setIsLogin={setIsLogin} setExpireTime={setExpireTime}
-                                                        setAccessToken={setAccessToken}/>}></Route>
-                <Route path="join" element={<JoinPage/>}></Route>
-            </Route>
+                <Route path="/" element={<Layout isLogin={isLogin} logoutHandler={logoutHandler} member={member}/>}>
+                    <Route index element={<MainPage isLogin={isLogin} member={member}/>}></Route>
+                    <Route path="sale" element={<SalePage isLogin={isLogin} member={member}/>}></Route>}
+                    <Route path="login" element={<LoginPage setIsLogin={setIsLogin} setExpireTime={setExpireTime}
+                                                            setAccessToken={setAccessToken}/>}></Route>
+                    <Route path="join" element={<JoinPage/>}></Route>
+                </Route>
         </Routes>
+        </ScrollToTop>
     </div>);
 }
 

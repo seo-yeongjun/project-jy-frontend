@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css'
-import {FaGithub, FaSearch} from 'react-icons/fa';
+import {FaGithub} from 'react-icons/fa';
 
 const Footer = () => {
     return (
