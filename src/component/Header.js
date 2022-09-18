@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './header.css';
 import {FaSearch} from 'react-icons/fa';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router";
 
-const Header = ({member,isLogin, logoutHandler}) => {
+const Header = ({isLogin, logoutHandler}) => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
     const navigate = useNavigate();
 
@@ -76,27 +74,6 @@ const Header = ({member,isLogin, logoutHandler}) => {
                     </div>
                 </div>
             </div>
-            
-                            <div>
-                                <div className='bar_wrapper'>
-                                  <div className='bar'>  
-                                  <div className='class_review'>
-                                    <FontAwesomeIcon style={{fontSize:'20px'}} icon={faPencil} />
-                                    <span style={{fontSize:'15px'}}>과목후기</span>
-                                  </div>
-                                    <div className='profile'>
-                                      {isLogin ? <span>
-                                                    <span style={{margin: '0 5px'}}>프로필 이미지</span>
-                                                    <span style={{fontSize: '12px'}}>
-                                                        {member.nickname}님
-                                                    </span>
-                                        </span> : ''}
-                                        <span  className='sellBtn'>판매내역</span>
-                                    </div>
-                                  </div>    
-                                </div>
-                            </div>
-                            
            </div> 
         )
 }

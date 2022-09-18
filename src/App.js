@@ -14,8 +14,8 @@ import axios from "./api/axios";
 
 const Layout = ({member, isLogin, logoutHandler}) => {
     return (<div>
-         <Header member={member} isLogin={isLogin} logoutHandler={logoutHandler}/>
-        {/* <ProfileBar member={member} isLogin={isLogin}/> */}
+         <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
+         <ProfileBar member={member} isLogin={isLogin}/>
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
             <div className="pt-48 pb-24">
                 <Outlet/>
