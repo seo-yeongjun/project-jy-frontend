@@ -2,17 +2,26 @@ import React, {useEffect, useState} from 'react';
 import './header.css';
 import {FaSearch} from 'react-icons/fa';
 import {useNavigate} from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-const Header = ({isLogin, logoutHandler}) => {
+
+const Header = ({isLogin, logoutHandler, setIsVisible,isVisible}) => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
     const navigate = useNavigate();
 
     useEffect(() => {
         window.addEventListener('resize', handleResize)
     }, [windowSize])
+
     const handleResize = () => {
         setWindowSize(window.innerWidth);
     }
+
+    const onClickMenuBars = ()=>{
+        setIsVisible(!isVisible)
+    }
+
     if ((windowSize < 768))
         return (
             <header className='mobile_header'>
@@ -30,11 +39,15 @@ const Header = ({isLogin, logoutHandler}) => {
                                                  onClick={() => navigate('/login')}>로그인</button>}
                             {isLogin && <button className="hover:cursor-pointer" onClick={logoutHandler}>로그아웃</button>}
                         </div>
+                        
+
 
                         <div className='signUpBtn'>
                             {/* <FaSignInAlt className='FaSignInAlt' /> */}
                             <button className="hover:cursor-pointer" onClick={() => navigate('/join')}>회원가입</button>
                         </div>
+
+                        <a><FontAwesomeIcon style={{fontSize:'20px'}} icon={faBars} onClick={onClickMenuBars}/></a>
                     </div>
                 </div>
                 <div className='mobile_lowerPart'>
@@ -47,24 +60,20 @@ const Header = ({isLogin, logoutHandler}) => {
         )
     else
         return (
+           <div> 
             <div className="header">
                 <div>
-                    <button onClick={() => navigate('/')}><img className="logo" src="/img/logo-width.svg"
-                                                               alt="logo"/>
-                    </button>
+                    <button onClick={() => navigate('/')}><img className="logo" src="/img/logo-width.svg" alt="logo"/></button>
                 </div>
                 <div className='searchInput'>
                     <input className='searchInput_input'/>
                     <button className='searchInput-btn'><FaSearch/></button>
                 </div>
-
-
                 <div>
                     <div className='userSection'>
                         <div className='signInBtn'>
                             {/* <FaUser className='FaUser' /> */}
-                            {!isLogin && <button className="hover:cursor-pointer"
-                                                 onClick={() => navigate('/login')}>로그인</button>}
+                            {!isLogin && <button className="hover:cursor-pointer" onClick={() => navigate('/login')}>로그인</button>}
                             {isLogin && <button className="hover:cursor-pointer" onClick={logoutHandler}>로그아웃</button>}
                         </div>
 
@@ -75,6 +84,7 @@ const Header = ({isLogin, logoutHandler}) => {
                     </div>
                 </div>
             </div>
+           </div> 
         )
 }
 

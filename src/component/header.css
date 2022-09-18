@@ -79,7 +79,8 @@
 
 .signInBtn button, .signUpBtn button {
     font-size: 15px;
-    color: black;
+    /* color: gray; */
+    font-family:'Sunflower', sans-serif ;
 }
 
 .FaUser, .FaSignInAlt {
@@ -157,6 +158,7 @@
     width: 10rem;
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 /* ProfileBar */
@@ -166,11 +168,10 @@
     width: 100%;
     background-color: #BBB9B9;
     position:fixed;
-    top:5rem;
+    top:5rem; 
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .bar {
@@ -180,19 +181,20 @@
     justify-content: space-between;
 }
 
+
+.profile {
+    width: 62%;
+    display: flex;
+    justify-content: end;
+}
+
+.userIcon {
+    width: 30px;
+    height: 30px;
+}
+
+
 .class_review:hover {
     cursor: pointer;
     color:white;
-}
-
-.profile {
-    display:flex;
-    justify-content: space-between;
-    width: 23%;
-}
-
-
-.sellBtn:hover {
-    cursor: pointer;
-    color: white;
 }
