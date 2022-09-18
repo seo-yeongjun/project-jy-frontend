@@ -7,7 +7,7 @@ const MainPage = ({isLogin, member}) => {
         navigate('/sale')
     }
     return (<div
-        className="bg-opacity-60 rounded bg-white w-1/4 m-auto shadow-xl">
+        className="bg-opacity-60 rounded bg-white w-1/2 sm:w-1/3 md:w-1/4 m-auto shadow-xl">
         <div className="flex flex-col"><span><span className="text-2xl">📚</span> 판매 중인 책 <span
             className="text-2xl">📚</span></span><span
             className="text-6xl text-gray-700">{0}<span className="text-xl">권</span></span></div>

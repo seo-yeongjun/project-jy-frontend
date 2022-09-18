@@ -7,26 +7,46 @@ import {getBooksByName, getDepartments, getLecturesByName} from "../api/info";
 import SelectBooks from "../component/SelectBooks";
 import useDebounce from "../hooks/useDebounce";
 import SelectLectures from "../component/SelectLectures";
+import {postSale} from "../api/sale";
+import {Textarea} from "@mobiscroll/react-lite";
 
 const SalePage = ({isLogin, member}) => {
+    const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
+    const [lecture, setLecture] = useState({title: '', departmentId: ''})
+    const [review, setReview] = useState('')
+    const [book, setBook] = useState({title: '', author: '', publisher: '', price: '', isbn: '', image: ''})
+    const [connect, setConnect] = useState('')
+
     const [existBook, setExistBook] = useState(false)
     const [existLecture, setExistLecture] = useState(false)
     const [bookTitle, setBookTitle] = useState('')
     const [lectureTitle, setLectureTitle] = useState('')
-    const [book, setBook] = useState({title: '', author: '', publisher: '', price: '', isbn: '', image: ''})
     const [books, setBooks] = useState([])
     const [lectures, setLectures] = useState([])
-    const [lecture, setLecture] = useState({title: ''})
-    const [departments, setDepatments] = useState([])
+    const [departments, setDepartments] = useState([])
+    const [isPost, setIsPost] = useState(false)
+
+
+    const titleHandler = (e) => {
+        setTitle(e.target.value)
+    }
+
+    const connectHandler = (e) => {
+        setConnect(e.target.value)
+    }
+
+    const reviewHandler = (e) => {
+        setReview(e.target.value)
+    }
 
     useEffect(() => {
-        getDepartments(setDepatments)
+        getDepartments(setDepartments)
     }, [])
 
     const navigate = useNavigate()
 
-    const departmentName = (optionId) =>{
+    const departmentName = (optionId) => {
         let department = departments.filter(department => department.id === optionId)
         return department[0].name
     }
@@ -53,7 +73,6 @@ const SalePage = ({isLogin, member}) => {
     useEffect(() => {
         if (lectureValue.length > 0) {
             getLecturesByName(setLectures, lectureValue)
-            console.log(lectures)
         }
     }, [lectureValue])
     useEffect(() => {
@@ -68,11 +87,70 @@ const SalePage = ({isLogin, member}) => {
         }
     })
 
+    const submitHandler = (e) => {
+        e.preventDefault()
+        if (book.title === '' || lecture.title === '' || title === '' || content === '' || connect === '') {
+            if (book.title === '') {
+                alert('책을 선택해주세요.')
+                return
+            }
+            if (lecture.title === '') {
+                alert('강의를 선택해주세요.')
+                return
+            }
+            if (title === '') {
+                alert('제목을 입력해주세요.')
+                return
+            }
+            if (content === '') {
+                alert('내용을 입력해주세요.')
+                return
+            }
+            if (connect === '') {
+                alert('연락처를 입력해주세요.')
+            }
+        } else {
+            const sale = {
+                book: {
+                    title: book.title,
+                    publisher: book.publisher,
+                    author: book.author,
+                    code: book.isbn,
+                    thumbnail: book.image
+                },
+                lecture: {
+                    title: lecture.title,
+                    department: lecture.departmentId,
+                    id: lecture.id
+                },
+                saleBook: {
+                    content: content,
+                    title: title,
+                    soldOut: false,
+                    connect: connect
+
+                },
+                lectureReview: {
+                    lectureId: lecture.id,
+                    content: review,
+                },
+                memberId: member.memberId
+            }
+            postSale(sale, setIsPost)
+        }
+    }
+    useEffect(() => {
+        if (isPost) {
+            alert('등록되었습니다.')
+            navigate('/')
+        }
+    }, [isPost])
     return (/*책 판매 등록 페이지*/
         <div className="container mx-auto">
             <div className="flex flex-col items-center justify-center">
                 <div className="w-full max-w-screen-lg">
-                    <form className="bg-white bg-opacity-70 shadow-md rounded px-2 pt-6 pb-8 mb-4">
+                    <div className="bg-white bg-opacity-70 shadow-md rounded px-2 pt-4 pb-8 mb-4">
+                        <div className="mb-2 font-bold text-lg">판매 등록</div>
                         <div className="border p-2 rounded bg-white mb-2">
                             <div className="mb-4">
                                 <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="title">
@@ -138,7 +216,12 @@ const SalePage = ({isLogin, member}) => {
                                     <div className="mb-4 font-bold">선택 하신 강의</div>
                                     <span>&lt;{departmentName(parseInt(lecture.departmentId))}&gt; {lecture.title}</span>
                                 </div> : <div className="mb-4"></div>}
-
+                            <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="review">
+                                과목 후기
+                            </label>
+                            <Textarea id='review' rows='3' className='shadow appearance-none border rounded w-full'
+                                      placeholder='다른 학우들을 위해 과목 후기를 작성해 주시겠어요?&#13;&#10;원치 않으시면 빈칸으로 두시면 됩니다.'
+                                      onChange={reviewHandler} value={review}></Textarea>
                         </div>
                         <div className="border p-2 rounded bg-white mb-2">
                             <div className="mb-4">
@@ -147,7 +230,7 @@ const SalePage = ({isLogin, member}) => {
                                 </label>
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    type="text" placeholder="글 제목을 입력해주세요."/>
+                                    type="text" placeholder="글 제목을 입력해주세요." onChange={titleHandler} value={title}/>
                             </div>
                             <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="description">
                                 설명
@@ -158,16 +241,18 @@ const SalePage = ({isLogin, member}) => {
                             <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
                                 연락처
                             </label>
-                            <input type="text" id='phoneNumber' placeholder="010-0000-0000"
+                            <input type="text" id='phoneNumber' placeholder="010-0000-0000" onChange={connectHandler}
+                                   value={connect}
                                    className="shadow appearance-none mt-3 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
                         </div>
                         <div className="mt-6">
                             <button
+                                onClick={submitHandler}
                                 className="bg-blue-500 hover:bg-blue-700 text-white w-1/2 m-auto font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 type="button">등록
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
