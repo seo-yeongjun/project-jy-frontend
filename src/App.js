@@ -13,20 +13,18 @@ import axios from "./api/axios";
 import ScrollToTop from "./component/ScrollToTop";
 
 
-<<<<<<< HEAD
 
-const Layout = ({member, isLogin, logoutHandler}) => {
-    return (<div>
-         <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
-         <ProfileBar member={member} isLogin={isLogin}/>
-=======
+
 const Layout = ({isLogin, logoutHandler, member}) => {
+    const [isVisible, setIsVisible] = useState(false);
     const path = useLocation()
+    useEffect(()=>{
+        console.log(isVisible)
+    },[isVisible])
     return (<div>
-        <Header isLogin={isLogin} logoutHandler={logoutHandler}/>
-        <ProfileBar member={member} isLogin={isLogin}/>
+        <Header isLogin={isLogin} logoutHandler={logoutHandler} setIsVisible={setIsVisible} isVisible={isVisible}/>
+        <ProfileBar member={member} isLogin={isLogin} isVisible={isVisible}/>
         {/* <Header isLogin={isLogin} logoutHandler={logoutHandler}/> */}
->>>>>>> ce27471e79678b2210b3cf81c060b24a3a8fb217
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
             <div className={path.pathname === '/' ? 'pt-32' : 'pt-48' + ' pb-24'}>
                 <Outlet/>
