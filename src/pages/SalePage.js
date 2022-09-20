@@ -144,7 +144,7 @@ const SalePage = ({isLogin, member}) => {
             alert('등록되었습니다.')
             navigate('/')
         }
-    }, [isPost])
+    }, [isPost,navigate])
     return (/*책 판매 등록 페이지*/
         <div className="container mx-auto">
             <div className="flex flex-col items-center justify-center">

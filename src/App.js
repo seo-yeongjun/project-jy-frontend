@@ -13,14 +13,9 @@ import axios from "./api/axios";
 import ScrollToTop from "./component/ScrollToTop";
 
 
-
-
 const Layout = ({isLogin, logoutHandler, member}) => {
     const [isVisible, setIsVisible] = useState(false);
     const path = useLocation()
-    useEffect(()=>{
-        console.log(isVisible)
-    },[isVisible])
     return (<div>
         <Header isLogin={isLogin} logoutHandler={logoutHandler} setIsVisible={setIsVisible} isVisible={isVisible}/>
         <ProfileBar member={member} isLogin={isLogin} isVisible={isVisible}/>
@@ -57,7 +52,7 @@ function App() {
 
     return (<div className="App">
         <ScrollToTop>
-        <Routes>
+            <Routes>
                 <Route path="/" element={<Layout isLogin={isLogin} logoutHandler={logoutHandler} member={member}/>}>
                     <Route index element={<MainPage isLogin={isLogin} member={member}/>}></Route>
                     <Route path="sale" element={<SalePage isLogin={isLogin} member={member}/>}></Route>}
@@ -65,7 +60,7 @@ function App() {
                                                             setAccessToken={setAccessToken}/>}></Route>
                     <Route path="join" element={<JoinPage/>}></Route>
                 </Route>
-        </Routes>
+            </Routes>
         </ScrollToTop>
     </div>);
 }
