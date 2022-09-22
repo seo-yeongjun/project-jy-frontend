@@ -34,23 +34,15 @@ const ProfileBar = ({member,isLogin,isVisible})=>{
   return (
         <div>
             <div className='bar_wrapper' ref={barWrapperRef}>
-              <div className='bar'>  
+              <div className='bar'>
               <div className='class_review'>
                 <FontAwesomeIcon style={{fontSize:'20px'}} icon={faPencil}/>
                 <span style={{fontSize:'15px'}}>과목후기</span>
               </div>
                 <div className='profile'>
-                  {isLogin ? <span style={{display: 'flex', alignItems:'center'}} >
-                        <span> 
-                        <img className="userIcon" src="/img/pngwing.com.svg" alt="userIcon"/>
-                        </span>
-                            <span style={{fontSize:'12px'}}>  {member.nickname}
-                                <span style={{marginRight: '5px'}}></span>
-                            </span>
-                    </span> : ''}
                     <span style={{marginLeft: '15px'}}>판매내역</span>
                 </div>
-              </div>    
+              </div>
             </div>
         </div>
 )

@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
 
 
-const Header = ({isLogin, logoutHandler, setIsVisible, isVisible}) => {
+const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
     const navigate = useNavigate();
 
@@ -44,6 +44,7 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible}) => {
                             {/* <FaSignInAlt className='FaSignInAlt' /> */}
                             {!isLogin && <button className="hover:cursor-pointer"
                                                  onClick={() => navigate('/join')}>회원가입</button>}
+                            {isLogin ?? <div>zzz</div>}
                         </div>
 
                         <a><FontAwesomeIcon style={{fontSize: '20px'}} icon={faBars} onClick={onClickMenuBars}/></a>
@@ -83,6 +84,10 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible}) => {
                                 {/* <FaSignInAlt className='FaSignInAlt' /> */}
                                 {!isLogin && <button className="hover:cursor-pointer"
                                                      onClick={() => navigate('/join')}>회원가입</button>}
+                                {isLogin && <span className='flex items-center' style={{fontFamily:'Sunflower, sans-serif'}}>
+                                                <img className="userIcon" src="/img/pngwing.com.svg" alt="userIcon"/>
+                                             <span className='text-sm'>  {member.nickname}님</span>
+                                </span>}
                             </div>
                         </div>
                     </div>
