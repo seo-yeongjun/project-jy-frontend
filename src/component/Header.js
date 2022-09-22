@@ -32,11 +32,16 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                     </div>
 
                     <div className='mobile_userSection'>
+                        {isLogin && <span className='flex items-center' style={{fontFamily: 'Sunflower, sans-serif'}}>
+                                                <img className="userIcon" src="/img/pngwing.com.svg" alt="userIcon"/>
+                                             <span className='text-sm'>  {member.nickname}님</span>
+                                </span>}
                         <div className='signInBtn'>
                             {/* <FaUser className='FaUser' /> */}
-                            {!isLogin && <button className="hover:cursor-pointer"
+                            {!isLogin && <button className="hover:cursor-pointer hover:text-white"
                                                  onClick={() => navigate('/login')}>로그인</button>}
-                            {isLogin && <button className="hover:cursor-pointer" onClick={logoutHandler}>로그아웃</button>}
+                            {isLogin && <button className="hover:cursor-pointer hover:text-white"
+                                                onClick={logoutHandler}>로그아웃</button>}
                         </div>
 
 
@@ -44,10 +49,9 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                             {/* <FaSignInAlt className='FaSignInAlt' /> */}
                             {!isLogin && <button className="hover:cursor-pointer"
                                                  onClick={() => navigate('/join')}>회원가입</button>}
-                            {isLogin ?? <div>zzz</div>}
                         </div>
 
-                        <a><FontAwesomeIcon style={{fontSize: '20px'}} icon={faBars} onClick={onClickMenuBars}/></a>
+                        <FontAwesomeIcon style={{fontSize: '20px'}} icon={faBars} onClick={onClickMenuBars}/>
                     </div>
                 </div>
                 <div className='mobile_lowerPart'>
@@ -72,9 +76,14 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                     </div>
                     <div>
                         <div className='userSection'>
+                            {isLogin &&
+                                <span className='flex items-center' style={{fontFamily: 'Sunflower, sans-serif'}}>
+                                                <img className="userIcon" src="/img/pngwing.com.svg" alt="userIcon"/>
+                                             <span className='text-sm'>  {member.nickname}님</span>
+                                </span>}
                             <div className='signInBtn'>
                                 {/* <FaUser className='FaUser' /> */}
-                                {!isLogin && <button className="hover:cursor-pointer"
+                                {!isLogin && <button className="hover:cursor-pointer "
                                                      onClick={() => navigate('/login')}>로그인</button>}
                                 {isLogin &&
                                     <button className="hover:cursor-pointer" onClick={logoutHandler}>로그아웃</button>}
@@ -82,12 +91,8 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
 
                             <div className='signUpBtn'>
                                 {/* <FaSignInAlt className='FaSignInAlt' /> */}
-                                {!isLogin && <button className="hover:cursor-pointer"
+                                {!isLogin && <button className="hover:cursor-pointer hover:text-white"
                                                      onClick={() => navigate('/join')}>회원가입</button>}
-                                {isLogin && <span className='flex items-center' style={{fontFamily:'Sunflower, sans-serif'}}>
-                                                <img className="userIcon" src="/img/pngwing.com.svg" alt="userIcon"/>
-                                             <span className='text-sm'>  {member.nickname}님</span>
-                                </span>}
                             </div>
                         </div>
                     </div>
