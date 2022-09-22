@@ -17,7 +17,7 @@ const Layout = ({isLogin, logoutHandler, member}) => {
     const [isVisible, setIsVisible] = useState(false);
     const path = useLocation()
     return (<div>
-        <Header isLogin={isLogin} logoutHandler={logoutHandler} setIsVisible={setIsVisible} isVisible={isVisible}/>
+        <Header isLogin={isLogin} logoutHandler={logoutHandler} setIsVisible={setIsVisible} isVisible={isVisible} member={member}/>
         <ProfileBar member={member} isLogin={isLogin} isVisible={isVisible}/>
         {/* <Header isLogin={isLogin} logoutHandler={logoutHandler}/> */}
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
