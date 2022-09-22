@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import word from "../commonWord/word";
 import {login} from "../api/auth";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 
 const LoginPage = ({setIsLogin, setExpireTime, setAccessToken}) => {
     const [memberId, setMemberId] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
     const navigate = useNavigate();
-
+    const location = useLocation();
     const memberIdHandler = (e) => {
         setMemberId(e.target.value)
     }
@@ -16,13 +17,21 @@ const LoginPage = ({setIsLogin, setExpireTime, setAccessToken}) => {
     }
     const onSubmit = (e) => {
         e.preventDefault()
+        if(memberId === ''){
+            setError("아이디를 입력해주세요.")
+            return
+        }
+        else if(password === ''){
+            setError("비밀번호를 입력해주세요.")
+            return
+        }
         login(memberId, password).then(() => {
             setIsLogin(true)
             setAccessToken(localStorage.getItem('accessToken'))
             setExpireTime(localStorage.getItem('tokenExpiresIn'))
-            navigate(-1)
+            navigate(location.state?.from || '/')
         }).catch(() => {
-            console.log("로그인 실패")
+            setError("아이디 또는 비밀번호가 일치하지 않습니다.")
         })
     }
     return (
@@ -35,6 +44,7 @@ const LoginPage = ({setIsLogin, setExpireTime, setAccessToken}) => {
                        placeholder="아이디"/>
                 <input onChange={passwordHandler} type="password" className="border border-black rounded mb-2 p-1"
                        placeholder="비밀번호"/>
+                <div className="text-red-500 text-sm">{error}</div>
                 <button onClick={onSubmit}
                         className="mt-3 text-white bg-amber-300 hover:bg-amber-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">로그인
                 </button>
