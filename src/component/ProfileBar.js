@@ -36,11 +36,11 @@ const ProfileBar = ({member,isLogin,isVisible})=>{
             <div className='bar_wrapper' ref={barWrapperRef}>
               <div className='bar'>
               <div className='class_review'>
-                <FontAwesomeIcon style={{fontSize:'20px'}} icon={faPencil}/>
-                <span style={{fontSize:'15px'}}>과목후기</span>
+                <FontAwesomeIcon style={{fontSize:'15px'}} icon={faPencil}/>
+                <span style={{fontSize:'15px'}} className='ml-2'>과목후기</span>
               </div>
                 <div className='profile'>
-                    <span style={{marginLeft: '15px'}}>판매내역</span>
+                    <span style={{fontSize:'15px'}}>판매내역</span>
                 </div>
               </div>
             </div>
