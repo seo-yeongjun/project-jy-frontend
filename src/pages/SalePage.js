@@ -3,14 +3,14 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router";
 import ToastEditor from "../component/JYEditor";
-import {getBooksByName, getDepartments, getLecturesByName} from "../api/info";
+import {getBooksByName, getLecturesByName} from "../api/info";
 import SelectBooks from "../component/SelectBooks";
 import useDebounce from "../hooks/useDebounce";
 import SelectLectures from "../component/SelectLectures";
 import {postSale} from "../api/sale";
 import {Textarea} from "@mobiscroll/react-lite";
 
-const SalePage = ({isLogin, member}) => {
+const SalePage = ({isLogin, member, departments}) => {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [lecture, setLecture] = useState({title: '', departmentId: ''})
@@ -24,7 +24,7 @@ const SalePage = ({isLogin, member}) => {
     const [lectureTitle, setLectureTitle] = useState('')
     const [books, setBooks] = useState([])
     const [lectures, setLectures] = useState([])
-    const [departments, setDepartments] = useState([])
+
     const [isPost, setIsPost] = useState(false)
 
 
@@ -39,10 +39,6 @@ const SalePage = ({isLogin, member}) => {
     const reviewHandler = (e) => {
         setReview(e.target.value)
     }
-
-    useEffect(() => {
-        getDepartments(setDepartments)
-    }, [])
 
     const navigate = useNavigate()
 
@@ -83,7 +79,7 @@ const SalePage = ({isLogin, member}) => {
 
     useEffect(() => {
         if (!isLogin) {
-            navigate('/login')
+            navigate('/login', {state: {from: '/sale'}})
         }
     })
 
