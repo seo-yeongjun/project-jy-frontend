@@ -32,10 +32,10 @@ export const SaleRow = () => {
         </div>
     )
     useEffect(() => {
-        fetchMoreData();
+        fetchRow();
     }, [])
 
-    const fetchMoreData = async () => {
+    const fetchRow = async () => {
         setIsLoding(true)
         await axios({method: 'GET', url: `/info/book/page/${page}`}).then((res) => {
             setList(prev => [...prev, ...res.data.content]); //리스트 추가
@@ -54,7 +54,7 @@ export const SaleRow = () => {
                 😊현재 이런 책들이 판매되고 있어요.😊
             </span>
             </div>
-            <InfiniteScroll next={fetchMoreData} hasMore={hasMore} dataLength={list.length} children={children}
+            <InfiniteScroll next={fetchRow} hasMore={hasMore} dataLength={list.length} children={children}
                             endMessage={(<div className='bg-white rounded w-fit m-auto px-5 py-1'>위 판매 글이 마지막 판매 글 이에요.</div>)} loader={(<div>loading...</div>)}></InfiniteScroll>
         </div>
     )
