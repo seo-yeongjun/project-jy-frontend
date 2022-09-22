@@ -45,3 +45,9 @@ export const getBookCount = async (setBookCount) => {
         setBookCount(res.data)
     })
 }
+
+export const getLectureReviewsByLectureId = async (setLectureReviews, id) => {
+    await axios.get(`/info/lectureReview/${id}`).then((res) => {
+        setLectureReviews(res.data)
+    })
+}
