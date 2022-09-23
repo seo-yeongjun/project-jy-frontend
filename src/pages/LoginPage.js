@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import word from "../commonWord/word";
 import {login} from "../api/auth";
 import {useLocation, useNavigate} from "react-router";
 
-const LoginPage = ({setIsLogin, setExpireTime, setAccessToken}) => {
+const LoginPage = ({setIsLogin, setExpireTime, setAccessToken,isLogin}) => {
     const [memberId, setMemberId] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
@@ -15,6 +15,11 @@ const LoginPage = ({setIsLogin, setExpireTime, setAccessToken}) => {
     const passwordHandler = (e) => {
         setPassword(e.target.value)
     }
+    useEffect(() => {
+        if(isLogin){
+            navigate(location.state?.from || '/')
+        }
+    },[isLogin])
     const onSubmit = (e) => {
         e.preventDefault()
         if(memberId === ''){
