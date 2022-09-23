@@ -38,11 +38,20 @@ export const SaleRow = () => {
     const fetchRow = async () => {
         setIsLoding(true)
         await axios({method: 'GET', url: `/info/book/page/${page}`}).then((res) => {
-            setList(prev => [...prev, ...res.data.content]); //리스트 추가
-            setMaxPage(res.data.totalPages);
-            setPage(prev => prev + 1);
-            if (page === maxPage) {
+            if (res.data.content.length === 0) {
                 setHasMore(false)
+            } else {
+                setList(prev => {
+                    if (prev.length === 0 || (prev.length > 0 && prev[0].id !== res.data.content[0].id)) {
+                        return [...prev, ...res.data.content]
+                    } else
+                        return prev
+                }); //리스트 추가
+                setMaxPage(res.data.totalPages);
+                setPage(prev => prev + 1);
+                if (page === maxPage) {
+                    setHasMore(false)
+                }
             }
         })
         setIsLoding(false)
@@ -55,7 +64,9 @@ export const SaleRow = () => {
             </span>
             </div>
             <InfiniteScroll next={fetchRow} hasMore={hasMore} dataLength={list.length} children={children}
-                            endMessage={(<div className='bg-white rounded w-fit m-auto px-5 py-1'>위 판매 글이 마지막 판매 글 이에요.</div>)} loader={(<div>loading...</div>)}></InfiniteScroll>
+                            endMessage={(
+                                <div className='bg-white rounded w-fit m-auto px-5 py-1'>위 판매 글이 마지막 판매 글 이에요.</div>)}
+                            loader={(<div>loading...</div>)}></InfiniteScroll>
         </div>
     )
 }
