@@ -13,6 +13,7 @@ import axios from "./api/axios";
 import ScrollToTop from "./component/ScrollToTop";
 import ReviewPage from "./pages/ReviewPage";
 import {getDepartments} from "./api/info";
+import HistoryPage from "./pages/HistoryPage";
 
 
 const Layout = ({isLogin, logoutHandler, member}) => {
@@ -62,9 +63,10 @@ function App() {
             <Routes>
                 <Route path="/" element={<Layout isLogin={isLogin} logoutHandler={logoutHandler} member={member}/>}>
                     <Route index element={<MainPage isLogin={isLogin} member={member}/>}></Route>
-                    <Route path="sale" element={<SalePage isLogin={isLogin} member={member} departments={departments}/>}></Route>}
+                    <Route path="sale" element={<SalePage isLogin={isLogin} member={member} departments={departments}/>}></Route>
+                    <Route path="sale/history" element={<HistoryPage isLogin={isLogin} member={member}></HistoryPage>}></Route>
                     <Route path="login" element={<LoginPage setIsLogin={setIsLogin} setExpireTime={setExpireTime}
-                                                            setAccessToken={setAccessToken}/>}></Route>
+                                                            setAccessToken={setAccessToken} isLogin={isLogin}/>}></Route>
                     <Route path="join" element={<JoinPage/>}></Route>
                     <Route path="review" element={<ReviewPage departments={departments}/>}></Route>
                 </Route>
