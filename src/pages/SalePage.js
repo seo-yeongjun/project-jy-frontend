@@ -1,6 +1,6 @@
 //react app
 
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate} from "react-router";
 import ToastEditor from "../component/JYEditor";
 import {getBooksByName, getLecturesByName} from "../api/info";
@@ -17,6 +17,7 @@ const SalePage = ({isLogin, member, departments}) => {
     const [review, setReview] = useState('')
     const [book, setBook] = useState({title: '', author: '', publisher: '', price: '', isbn: '', image: ''})
     const [connect, setConnect] = useState('')
+    const [price, setPrice] = useState('')
 
     const [existBook, setExistBook] = useState(false)
     const [existLecture, setExistLecture] = useState(false)
@@ -39,6 +40,10 @@ const SalePage = ({isLogin, member, departments}) => {
     const reviewHandler = (e) => {
         setReview(e.target.value)
     }
+
+    const priceHandler = (e) => {
+        setPrice(e.target.value)
+    };
 
     const navigate = useNavigate()
 
@@ -81,11 +86,11 @@ const SalePage = ({isLogin, member, departments}) => {
         if (!isLogin) {
             navigate('/login', {state: {from: '/sale'}})
         }
-    })
+    }, [isLogin, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (book.title === '' || lecture.title === '' || title === '' || content === '' || connect === '') {
+        if (book.title === '' || lecture.title === '' || title === '' || content === '' || connect === '' || price === '') {
             if (book.title === '') {
                 alert('책을 선택해주세요.')
                 return
@@ -105,6 +110,9 @@ const SalePage = ({isLogin, member, departments}) => {
             if (connect === '') {
                 alert('연락처를 입력해주세요.')
             }
+            if (price === '') {
+                alert('가격을 입력해주세요.')
+            }
         } else {
             const sale = {
                 book: {
@@ -123,8 +131,8 @@ const SalePage = ({isLogin, member, departments}) => {
                     content: content,
                     title: title,
                     soldOut: false,
-                    connect: connect
-
+                    connect: connect,
+                    price: price,
                 },
                 lectureReview: {
                     lectureId: lecture.id,
@@ -132,7 +140,7 @@ const SalePage = ({isLogin, member, departments}) => {
                 },
                 memberId: member.memberId
             }
-            postSale(sale, setIsPost)
+            postSale(sale, setIsPost, member.memberId)
         }
     }
     useEffect(() => {
@@ -140,7 +148,7 @@ const SalePage = ({isLogin, member, departments}) => {
             alert('등록되었습니다.')
             navigate('/')
         }
-    }, [isPost,navigate])
+    }, [isPost, navigate])
     return (/*책 판매 등록 페이지*/
         <div className="container mx-auto">
             <div className="flex flex-col items-center justify-center">
@@ -228,6 +236,15 @@ const SalePage = ({isLogin, member, departments}) => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     type="text" placeholder="글 제목을 입력해주세요." onChange={titleHandler} value={title}/>
                             </div>
+                            <div className="mb-4">
+                                <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+                                    판매 가격
+                                </label>
+                                <input
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    type="number" placeholder="8000" onChange={priceHandler}
+                                    value={price}/>
+                            </div>
                             <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="description">
                                 설명
                             </label>
@@ -237,7 +254,7 @@ const SalePage = ({isLogin, member, departments}) => {
                             <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
                                 연락처
                             </label>
-                            <input type="text" id='phoneNumber' placeholder="010-0000-0000" onChange={connectHandler}
+                            <input type="text" id='phoneNumber' placeholder="카톡 아이디, 전화번호 등 자유롭게 입력해주세요!" onChange={connectHandler}
                                    value={connect}
                                    className="shadow appearance-none mt-3 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
                         </div>
