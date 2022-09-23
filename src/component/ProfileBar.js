@@ -41,7 +41,7 @@ const ProfileBar = ({member, isLogin, isVisible}) => {
                         <Link to='review' style={{fontSize: '15px'}} className='ml-2'>과목후기</Link>
                     </div>
                     <div className='profile'>
-                        <span style={{fontSize: '15px'}}>판매내역</span>
+                        <Link to='/sale/history' style={{fontSize: '15px'}}>판매내역</Link>
                     </div>
                 </div>
             </div>
