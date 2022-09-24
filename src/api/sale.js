@@ -1,7 +1,8 @@
 import axios from "../api/axios";
 
+//sale에는 memberId가 필요합니다.
 
-export const postSale = async (sale,setIsPost,memberId) => {
+export const postSale = async (sale, setIsPost, memberId) => {
     await axios.post(`/sale/book?memberId=${memberId}`, {
         book: sale.book,
         lecture: sale.lecture,
@@ -10,9 +11,9 @@ export const postSale = async (sale,setIsPost,memberId) => {
         memberId: sale.memberId,
 
     }).then((res) => {
-        if(res.data){
+        if (res.data) {
             setIsPost(true)
-        }else{
+        } else {
             setIsPost(false)
         }
         console.log(res.data)
@@ -25,3 +26,11 @@ export const getSaleList = async (setSaleList, memberId) => {
         setSaleList(res.data)
     })
 }
+
+//판매 완료, 다시 판매
+export const postSaleComplete = async (saleId,memberId,setSoldOutChange) => {
+    await axios.post(`/sale/complete/${saleId}?memberId=${memberId}`).then((res) => {
+        setSoldOutChange(res.data)
+    })
+}
+

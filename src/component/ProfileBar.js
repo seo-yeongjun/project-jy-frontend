@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import './header.css';
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router";
 
 
 const ProfileBar = ({member, isLogin, isVisible}) => {
@@ -32,16 +32,18 @@ const ProfileBar = ({member, isLogin, isVisible}) => {
     const barWrapperRef = useRef();
 
 
+    const navigate = useNavigate()
+
     return (
         <div>
             <div className='bar_wrapper' ref={barWrapperRef}>
                 <div className='bar'>
                     <div className='class_review'>
                         <FontAwesomeIcon style={{fontSize: '15px'}} icon={faPencil}/>
-                        <Link to='review' style={{fontSize: '15px'}} className='ml-2'>과목후기</Link>
+                        <span onClick={()=>navigate('/review')} style={{fontSize: '15px'}} className='ml-2'>과목후기</span>
                     </div>
                     <div className='profile'>
-                        <Link to='/sale/history' style={{fontSize: '15px'}}>판매내역</Link>
+                        {isLogin ? <span onClick={()=>navigate('/sale/history')} style={{fontSize: '15px'}}>판매내역</span> :''}
                     </div>
                 </div>
             </div>

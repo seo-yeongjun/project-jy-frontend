@@ -20,7 +20,8 @@ const Layout = ({isLogin, logoutHandler, member}) => {
     const [isVisible, setIsVisible] = useState(false);
     const path = useLocation()
     return (<div>
-        <Header isLogin={isLogin} logoutHandler={logoutHandler} setIsVisible={setIsVisible} isVisible={isVisible} member={member}/>
+        <Header isLogin={isLogin} logoutHandler={logoutHandler} setIsVisible={setIsVisible} isVisible={isVisible}
+                member={member}/>
         <ProfileBar member={member} isLogin={isLogin} isVisible={isVisible} setIsVisible={setIsVisible}/>
         {/* <Header isLogin={isLogin} logoutHandler={logoutHandler}/> */}
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
@@ -44,6 +45,7 @@ function App() {
         getDepartments(setDepartments)
     }, [])
 
+
     useEffect(() => { //로그인 처리
         if (accessToken == null || expireTime == null || Date.now() >= expireTime) {
             logout(setIsLogin, setMember, setAccessToken, setExpireTime)
@@ -62,12 +64,15 @@ function App() {
         <ScrollToTop>
             <Routes>
                 <Route path="/" element={<Layout isLogin={isLogin} logoutHandler={logoutHandler} member={member}/>}>
-                    <Route index element={<MainPage isLogin={isLogin} member={member}/>}></Route>
-                    <Route path="sale" element={<SalePage isLogin={isLogin} member={member} departments={departments}/>}></Route>
-                    <Route path="sale/history" element={<HistoryPage isLogin={isLogin} member={member}></HistoryPage>}></Route>
+                    <Route index element={<MainPage isLogin={isLogin} member={member} departments={departments}/>}></Route>
                     <Route path="login" element={<LoginPage setIsLogin={setIsLogin} setExpireTime={setExpireTime}
-                                                            setAccessToken={setAccessToken} isLogin={isLogin}/>}></Route>
+                                                            setAccessToken={setAccessToken}
+                                                            isLogin={isLogin}/>}></Route>
                     <Route path="join" element={<JoinPage/>}></Route>
+                    <Route path="sale"
+                           element={<SalePage isLogin={isLogin} member={member} departments={departments}/>}></Route>
+                    <Route path="sale/history"
+                           element={<HistoryPage isLogin={isLogin} member={member}></HistoryPage>}></Route>
                     <Route path="review" element={<ReviewPage departments={departments}/>}></Route>
                 </Route>
             </Routes>

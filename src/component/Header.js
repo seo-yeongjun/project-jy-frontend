@@ -1,14 +1,36 @@
 import React, {useEffect, useState} from 'react';
 import './header.css';
 import {FaSearch} from 'react-icons/fa';
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
 
 
 const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
+    const [searchValue, setSearchValue] = useState("");
     const navigate = useNavigate();
+
+    const useQuery = () => {
+        return new URLSearchParams(useLocation().search);
+    }
+    let value = useQuery().get('q');
+
+    //value 값이 없으면 빈 문자열로 초기화
+    useEffect(() => {
+        if (!value) {
+            setSearchValue("")
+        }
+    }, [value])
+
+    const handleSearch = (e) => {
+        setSearchValue(e.target.value)
+    }
+
+    const doSubmit = (e) => {
+        e.preventDefault()
+        navigate(`/?q=${searchValue}`)
+    }
 
     useEffect(() => {
         window.addEventListener('resize', handleResize)
@@ -56,8 +78,11 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                 </div>
                 <div className='mobile_lowerPart'>
                     <div className='mobile_searchInput'>
-                        <input className='mobile_searchInput_input'/>
-                        <button className='mobile_searchInput-btn'><FaSearch/></button>
+                        <form onSubmit={doSubmit}>
+                            <input className='mobile_searchInput_input placeholder-gray-600' placeholder='과목 이름 또는 책 제목으로 찾기'
+                                   onChange={handleSearch} value={searchValue}/>
+                            <button type="submit" className='searchInput-btn'><FaSearch/></button>
+                        </form>
                     </div>
                 </div>
             </header>
@@ -71,8 +96,11 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                                                                    alt="logo"/></button>
                     </div>
                     <div className='searchInput'>
-                        <input className='searchInput_input'/>
-                        <button className='searchInput-btn'><FaSearch/></button>
+                        <form onSubmit={doSubmit}>
+                            <input className='searchInput_input placeholder-gray-600' placeholder='과목 이름 또는 책 제목으로 찾기'
+                                   onChange={handleSearch} value={searchValue}/>
+                            <button type="submit" className='searchInput-btn'><FaSearch/></button>
+                        </form>
                     </div>
                     <div>
                         <div className='userSection'>
