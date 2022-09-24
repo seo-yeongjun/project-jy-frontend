@@ -3,7 +3,6 @@ import axios from "../api/axios";
 
 export const getDepartments = async (setDepartments) => {
     await axios.get('/info/allDepartments').then((res) => {
-        console.log(res.data)
         setDepartments(res.data)
     })
 }

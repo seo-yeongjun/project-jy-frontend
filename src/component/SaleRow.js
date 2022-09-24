@@ -79,7 +79,7 @@ export const SaleRow = ({departments}) => {
         } else {
             searchRow(value)
         }
-    }, [value])
+    }, [value]);
 
     const fetchRow = async (value) => {
         setIsLoading(true)
@@ -137,7 +137,7 @@ export const SaleRow = ({departments}) => {
                 </div>
             </div>
             { //list가 없을 경우
-                list.length === 0 ?
+                (list.length === 0 && !isloading)?
                     <div className="w-fit min-h-[20vh] mx-auto bg-white bg-opacity-90 my-3 rounded p-3">
                         <div className='text-center text-xl font-bold'>🤔 아직 등록된 책이 없어요. 🤔</div>
                         <div className='mt-4 flex flex-col w-full items-center justify-center'>

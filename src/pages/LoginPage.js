@@ -19,7 +19,7 @@ const LoginPage = ({setIsLogin, setExpireTime, setAccessToken,isLogin}) => {
         if(isLogin){
             navigate(location.state?.from || '/')
         }
-    },[isLogin])
+    },[isLogin, navigate, location.state?.from])
     const onSubmit = (e) => {
         e.preventDefault()
         if(memberId === ''){

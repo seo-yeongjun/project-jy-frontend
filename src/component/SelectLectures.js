@@ -1,7 +1,5 @@
-import React, {useEffect} from 'react';
-import {Swiper, SwiperSlide} from "swiper/react";
+import React from 'react';
 import './SelectBox.css'
-import {Checkbox} from "@mobiscroll/react-lite";
 
 const SelectLectures = ({lectures, setLecture, setExistLecture, setLectureTitle, departments}) => {
 

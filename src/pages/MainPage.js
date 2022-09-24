@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from "react-router";
-import {getBookCount, getDepartments} from "../api/info";
+import {useNavigate} from "react-router";
+import {getBookCount} from "../api/info";
 import {SaleRow} from "../component/SaleRow";
 import word from "../commonWord/word";
 

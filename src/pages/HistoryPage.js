@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router";
 import {getSaleList, postSaleComplete} from "../api/sale";
 import {timeSince} from "../util/TimeSince";
@@ -42,7 +42,7 @@ const HistoryPage = ({member, isLogin}) => {
                                             className='text-blue-600'>판매 제목: </span>{sale.title}</div>
                                         <div className='text-sm text-gray-600'>판매 가격: {sale.price}원</div>
                                         <div className='flex mt-5'>
-                                            <img src={sale.book.thumbnail}
+                                            <img src={sale.book.thumbnail} alt={sale.book.title}
                                                       className='max-w-[5rem] max-h-[7rem]'/>
                                             <div className='mx-2 text-start'>
                                                 <div className=''><span

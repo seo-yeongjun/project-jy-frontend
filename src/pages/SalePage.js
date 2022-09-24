@@ -1,6 +1,6 @@
 //react app
 
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router";
 import ToastEditor from "../component/JYEditor";
 import {getBooksByName, getLecturesByName} from "../api/info";
