@@ -18,7 +18,7 @@ const MainPage = ({isLogin, member, departments}) => {
     }, [bookCount])
     return (<div>
         <div
-            className="bg-opacity-60 rounded bg-white w-fit p-2 m-auto shadow-xl">
+            className="bg-opacity-60 rounded bg-white w-fit p-2 m-auto shadow-2xl">
             <div className="flex flex-col"><span><span className="text-2xl">📚</span> {word.title}에 등록 된 책 <span
                 className="text-2xl">📚</span></span><span
                 className="text-6xl text-gray-700">{bookCount}<span className="text-xl">권</span></span></div>

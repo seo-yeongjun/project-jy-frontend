@@ -43,7 +43,7 @@ const ProfileBar = ({member, isLogin, isVisible}) => {
                         <span onClick={()=>navigate('/review')} style={{fontSize: '15px'}} className='ml-2'>과목후기</span>
                     </div>
                     <div className='profile'>
-                        {isLogin ? <span onClick={()=>navigate('/sale/history')} style={{fontSize: '15px'}}>판매내역</span> :''}
+                        {isLogin ? <span onClick={()=>navigate('/sale/history')} className='hover:cursor-pointer hover:text-white' style={{fontSize: '15px'}}>판매내역</span> :''}
                     </div>
                 </div>
             </div>
