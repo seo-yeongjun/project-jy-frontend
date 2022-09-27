@@ -7,6 +7,13 @@ export const getDepartments = async (setDepartments) => {
     })
 }
 
+export const getBookById = async (id, setDetail) => {
+    await axios.get(`/info/book/${id}`).then((res) => {
+        console.log(res.data)
+        setDetail(res.data)
+    })
+}
+
 export const getDepartmentById = async (setFindDepartment, id) => {
     await axios.get(`/info/department/id/${id}`).then((res) => {
         setFindDepartment(res.data)

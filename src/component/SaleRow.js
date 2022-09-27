@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "../api/axios";
 import {useLocation} from "react-router";
+import {Link} from "react-router-dom";
 
 export const SaleRow = ({departments}) => {
     const useQuery = () => {
@@ -36,10 +37,10 @@ export const SaleRow = ({departments}) => {
     }
 
     const item = (li) =>
-        <div className="w-full relative bg-white bg-opacity-90">
+        <div className="w-full relative bg-white bg-opacity-90 hover:bg-gray-100 rounded shadow">
             {li.soldOut ? <div
                 className='bg-red-500 left-[2rem] text-sm sm:text-xl top-[7%] rounded p-1 text-white text-center font-bold absolute z-10'>거래 완료</div> : ''}
-            <div
+            <Link to={`/sale/${li.id}`} state={{ detail: li }}
                 className={li.soldOut ? 'opacity-40 rounded shadow-xl p-2 flex my-2' : 'rounded shadow-xl p-2 flex my-2'}>
                 <img className='max-h-40 max-w-[8rem] m-auto mx-2' src={li.book.thumbnail}
                      alt={li.book.title}/>
@@ -61,7 +62,7 @@ export const SaleRow = ({departments}) => {
                         className='sm:hidden inline'/></span>{li.member.nickname}
                     </div>
                 </div>
-            </div>
+            </Link>
         </div>
 
     let children = list.map((li) =>
@@ -126,7 +127,7 @@ export const SaleRow = ({departments}) => {
     }
 
     return (
-        <div className="min-h-[50vh] bg-white bg-opacity-50 rounded w-10/12 mx-auto mt-4 p-2">
+        <div className="min-h-[50vh] bg-white bg-opacity-50 rounded w-10/12 mx-auto mt-4 p-2 shadow-2xl">
             <div className='w-full'>
                 <div className='font-bold text-center'>
                     {//search가 있을 경우
