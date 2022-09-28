@@ -28,9 +28,14 @@ export const getSaleList = async (setSaleList, memberId) => {
 }
 
 //판매 완료, 다시 판매
-export const postSaleComplete = async (saleId,memberId,setSoldOutChange) => {
+export const postSaleComplete = async (saleId, memberId, setSoldOutChange) => {
     await axios.post(`/sale/complete/${saleId}?memberId=${memberId}`).then((res) => {
         setSoldOutChange(res.data)
     })
 }
-
+//update date
+export const postSaleUpdate = async (saleId, memberId, setUpdateChange) => {
+    await axios.post(`/sale/book/update/${saleId}?memberId=${memberId}`).then((res) => {
+        setUpdateChange(res.data)
+    })
+}

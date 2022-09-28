@@ -14,6 +14,7 @@ import ScrollToTop from "./component/ScrollToTop";
 import ReviewPage from "./pages/ReviewPage";
 import {getDepartments} from "./api/info";
 import HistoryPage from "./pages/HistoryPage";
+import DetailPage from "./pages/DetailPage";
 
 
 const Layout = ({isLogin, logoutHandler, member}) => {
@@ -74,6 +75,7 @@ function App() {
                     <Route path="sale/history"
                            element={<HistoryPage isLogin={isLogin} member={member}></HistoryPage>}></Route>
                     <Route path="review" element={<ReviewPage departments={departments}/>}></Route>
+                    <Route path="sale/:id" element={<DetailPage departments={departments} />}></Route>
                 </Route>
             </Routes>
         </ScrollToTop>

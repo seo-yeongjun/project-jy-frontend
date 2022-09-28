@@ -3,6 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "../api/axios";
 import {useLocation} from "react-router";
 import {Link} from "react-router-dom";
+import {timeSince} from "../util/TimeSince";
 
 export const SaleRow = ({departments}) => {
     const useQuery = () => {
@@ -31,39 +32,42 @@ export const SaleRow = ({departments}) => {
         setSoldOutChange(!soldOutChange)
     }
 
-    const departmentName = (optionId) =>{
+    const departmentName = (optionId) => {
         let department = departments.filter(department => department.id === optionId)
         return department[0].name
     }
 
     const item = (li) =>
-        <div className="w-full relative bg-white bg-opacity-90 hover:bg-gray-100 rounded shadow">
-            {li.soldOut ? <div
-                className='bg-red-500 left-[2rem] text-sm sm:text-xl top-[7%] rounded p-1 text-white text-center font-bold absolute z-10'>거래 완료</div> : ''}
-            <Link to={`/sale/${li.id}`} state={{ detail: li }}
-                className={li.soldOut ? 'opacity-40 rounded shadow-xl p-2 flex my-2' : 'rounded shadow-xl p-2 flex my-2'}>
-                <img className='max-h-40 max-w-[8rem] m-auto mx-2' src={li.book.thumbnail}
-                     alt={li.book.title}/>
-                <div className='rounded border-2 w-full p-1 mt-2 text-start'>
-                    <div className='mb-1'><span
-                        className='text-sm text-blue-500'>판매 제목:</span> {li.title}
-                    </div>
-                    <div className='my-1'><span
-                        className='text-sm text-blue-500'>책 제목:</span> {li.book.title}
-                    </div>
-                    <div className='my-1'><span
-                        className='text-sm text-blue-500'>수업명:</span> &lt;{departmentName(parseInt(li.lecture.departmentId))}&gt; {li.lecture.title}
-                    </div>
-                    <div className='my-1'><span
-                        className='text-sm text-blue-500'>희망 가격:</span> {li.price}원
-                    </div>
-                    <div><span
-                        className='text-sm text-blue-500'>판매자: <br
-                        className='sm:hidden inline'/></span>{li.member.nickname}
+        <Link to={`/sale/${li.id}`} state={{detail: li}}>
+            <div className="w-full relative bg-white bg-opacity-90 hover:bg-gray-200 rounded shadow my-2">
+                {li.soldOut ? <div
+                    className='bg-red-500 left-[2rem] text-sm sm:text-xl top-[7%] rounded p-1 text-white text-center font-bold absolute z-10'>거래
+                    완료</div> : ''}
+                <div className='text-sm text-right mr-2 text-gray-600'><span className='text-blue-500 mr-2'>조회수: {li.view}</span> {timeSince(li.date)}</div>
+                <div className={li.soldOut ? 'opacity-40 rounded shadow-xl p-2 flex ' : 'rounded shadow-xl px-2 pb-2 flex'}>
+                    <img className='max-h-40 max-w-[8rem] m-auto mx-2' src={li.book.thumbnail}
+                         alt={li.book.title}/>
+                    <div className='rounded border-2 w-full p-1 mt-2 text-start'>
+                        <div className='mb-1'><span
+                            className='text-sm text-blue-500'>판매 제목:</span> {li.title}
+                        </div>
+                        <div className='my-1'><span
+                            className='text-sm text-blue-500'>책 제목:</span> {li.book.title}
+                        </div>
+                        <div className='my-1'><span
+                            className='text-sm text-blue-500'>수업명:</span> &lt;{departmentName(parseInt(li.lecture.departmentId))}&gt; {li.lecture.title}
+                        </div>
+                        <div className='my-1'><span
+                            className='text-sm text-blue-500'>희망 가격:</span> {li.price}원
+                        </div>
+                        <div><span
+                            className='text-sm text-blue-500'>판매자: <br
+                            className='sm:hidden inline'/></span>{li.member.nickname}
+                        </div>
                     </div>
                 </div>
-            </Link>
-        </div>
+            </div>
+        </Link>
 
     let children = list.map((li) =>
         <div key={li.id}>
@@ -138,7 +142,7 @@ export const SaleRow = ({departments}) => {
                 </div>
             </div>
             { //list가 없을 경우
-                (list.length === 0 && !isloading)?
+                (list.length === 0 && !isloading) ?
                     <div className="w-fit min-h-[20vh] mx-auto bg-white bg-opacity-90 my-3 rounded p-3">
                         <div className='text-center text-xl font-bold'>🤔 아직 등록된 책이 없어요. 🤔</div>
                         <div className='mt-4 flex flex-col w-full items-center justify-center'>

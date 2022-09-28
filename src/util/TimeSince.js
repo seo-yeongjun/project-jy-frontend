@@ -22,3 +22,9 @@ export const timeSince = (date) => {
     }
     return Math.floor(seconds) + "초 전";
 }
+
+export const threeDaysCheck = (date) => {
+    const seconds = Math.floor((new Date() - Date.parse(date)) / 1000);
+    const interval = seconds / 86400;
+    return interval >= 3;
+}

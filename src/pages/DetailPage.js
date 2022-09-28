@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router";
 import {timeSince} from "../util/TimeSince";
-import {getBookById, getDepartments} from "../api/info";
+import {getBookById, getDepartments, increaseViewCount} from "../api/info";
 import Parser from 'html-react-parser';
 
-const DetailPage = ({departments, setScrollTop}) => {
+const DetailPage = ({departments}) => {
     const location = useLocation();
     const pathId = location.pathname.split('/')[2];
+    const [count, setCount] = useState(false);
     const [detail, setDetail] = useState({
         id: '',
         content: '',
         connect: '',
         date: '2022-09-24T15:27:45',
+        view: '',
         lecture: {id: '', title: '', departmentId: '1'},
         book: {author: '', code: '', id: '', publisher: '', thumbnail: '', title: ''},
         member: {id: '', nickname: '', password: '', memberId: '', email: '', authority: ''}
@@ -20,7 +22,6 @@ const DetailPage = ({departments, setScrollTop}) => {
     const [connectTemp, setConnectTemp] = useState(false);
 
     useEffect(() => {
-        setScrollTop(true)
         if (location.state !== null) {
             setDetail(location.state.detail)
         } else {
@@ -32,6 +33,15 @@ const DetailPage = ({departments, setScrollTop}) => {
             getDepartments(setDetailDepartments)
         }
     }, [])
+
+    useEffect(() => {
+        if (detail.id === '') {
+            setCount(!count)
+        } else {
+            increaseViewCount(detail.id)
+            setDetail({...detail, view: detail.view + 1})
+        }
+    }, [count])
 
     const departmentName = (optionId) => {
         if (detailDepartments.length > 0) {
@@ -46,7 +56,10 @@ const DetailPage = ({departments, setScrollTop}) => {
                     <img src={detail.book.thumbnail} alt={detail.book.title} className="w-52 m-auto"/>
                 </div>
                 <div className="w-full md:w-1/2 p-4">
-                    <div className="text-xl font-bold text-start">{detail.title}</div>
+                    <div className='flex justify-between'>
+                        <div className="text-xl font-bold text-start">{detail.title}</div>
+                        <div className="text-sm text-start">조회수: {detail.view}</div>
+                    </div>
                     <div className='flex w-full justify-between'>
                         <div
                             className="text-sm text-gray-600 text-start">판매자: {detail.member.nickname}</div>

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router";
-import {getSaleList, postSaleComplete} from "../api/sale";
-import {timeSince} from "../util/TimeSince";
+import {getSaleList, postSaleComplete, postSaleUpdate} from "../api/sale";
+import {threeDaysCheck, timeSince} from "../util/TimeSince";
 
 const HistoryPage = ({member, isLogin}) => {
     const [saleList, setSaleList] = useState([]);
     const [soldOutChange, setSoldOutChange] = useState(false);
+    const [updateChange, setUpdateChange] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,8 +23,18 @@ const HistoryPage = ({member, isLogin}) => {
         setSoldOutChange(false)
     }, [isLogin, member.memberId, soldOutChange])
 
-    const handleSoldOut =(id) => {
-        postSaleComplete(id,member.memberId,setSoldOutChange)
+    useEffect(() => {
+        if(updateChange){
+            window.location.reload()
+        }
+    }, [updateChange])
+
+    const handleSoldOut = (id) => {
+        postSaleComplete(id, member.memberId, setSoldOutChange)
+    }
+
+    const handleUpdate = (id) => {
+        postSaleUpdate(id, member.memberId, setUpdateChange)
     }
 
     return (
@@ -32,7 +43,9 @@ const HistoryPage = ({member, isLogin}) => {
                 <div className='text-2xl font-bold mb-4'>📚 {member.nickname}님의 판매 내역 🛒</div>
                 {saleList.map((sale) => (
                     <div className='relative bg-white shadow-md rounded-lg mb-4' key={sale.id}>
-                            {sale.soldOut ? <div className='bg-red-500 left-[7%] text-xl sm:text-2xl top-[5%] rounded p-1 text-white text-center font-bold absolute z-10'>판매 완료</div> : ''}
+                        {sale.soldOut ? <div
+                            className='bg-red-500 left-[7%] text-xl sm:text-2xl top-[5%] rounded p-1 text-white text-center font-bold absolute z-10'>판매
+                            완료</div> : ''}
                         <div className='p-2'>
                             <div className='flex justify-between'>
                                 <div className={sale.soldOut ? 'opacity-40' : ''}>
@@ -43,7 +56,7 @@ const HistoryPage = ({member, isLogin}) => {
                                         <div className='text-sm text-gray-600'>판매 가격: {sale.price}원</div>
                                         <div className='flex mt-5'>
                                             <img src={sale.book.thumbnail} alt={sale.book.title}
-                                                      className='max-w-[5rem] max-h-[7rem]'/>
+                                                 className='max-w-[5rem] max-h-[7rem]'/>
                                             <div className='mx-2 text-start'>
                                                 <div className=''><span
                                                     className='font-bold'>책 제목: </span>{sale.book.title}</div>
@@ -57,13 +70,14 @@ const HistoryPage = ({member, isLogin}) => {
                                     <div className='text-sm text-gray-600 text-start'>판매 상태: <span
                                         className='font-bold block'>{sale.soldOut ? '판매 완료' : '판매 중'}</span></div>
                                     {sale.soldOut ?
-                                        <button onClick={()=>handleSoldOut(sale.id)}
-                                            className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 text-white my-2 hover:bg-amber-300'>다시
+                                        <button onClick={() => handleSoldOut(sale.id)}
+                                                className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 text-white my-2 hover:bg-amber-300'>다시
                                             판매</button>
-                                        : <button onClick={()=>handleSoldOut(sale.id)}
-                                            className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 text-white my-2 hover:bg-amber-300'>거래
+                                        : <button onClick={() => handleSoldOut(sale.id)}
+                                                  className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 text-white my-2 hover:bg-amber-300'>거래
                                             완료</button>
                                     }
+                                    {!sale.soldOut && threeDaysCheck(sale.date) ? <button onClick={()=>handleUpdate(sale.id)} className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 text-white hover:bg-amber-300'>재등록</button> : ''}
                                 </div>
                             </div>
                         </div>
