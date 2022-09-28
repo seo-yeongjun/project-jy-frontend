@@ -57,3 +57,8 @@ export const getLectureReviewsByLectureId = async (setLectureReviews, id) => {
         setLectureReviews(res.data)
     })
 }
+
+//increasing view count
+export const increaseViewCount = async (id) => {
+    await axios.post(`/info/view/increase/${id}`)
+}
