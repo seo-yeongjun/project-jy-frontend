@@ -15,6 +15,7 @@ import ReviewPage from "./pages/ReviewPage";
 import {getDepartments} from "./api/info";
 import HistoryPage from "./pages/HistoryPage";
 import DetailPage from "./pages/DetailPage";
+import ProfilePage from "./pages/ProfilePage";
 
 
 const Layout = ({isLogin, logoutHandler, member}) => {
@@ -76,6 +77,7 @@ function App() {
                            element={<HistoryPage isLogin={isLogin} member={member}></HistoryPage>}></Route>
                     <Route path="review" element={<ReviewPage departments={departments}/>}></Route>
                     <Route path="sale/:id" element={<DetailPage departments={departments} />}></Route>
+                    <Route path="profile" element={<ProfilePage member={member} isLogin={isLogin}/>}></Route>
                 </Route>
             </Routes>
         </ScrollToTop>

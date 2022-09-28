@@ -54,10 +54,10 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                     </div>
 
                     <div className='mobile_userSection'>
-                        {isLogin && <span className='flex items-center' style={{fontFamily: 'Sunflower, sans-serif'}}>
+                        {isLogin && <button  onClick={() => navigate('/profile')} className='flex items-center' style={{fontFamily: 'Sunflower, sans-serif'}}>
                                                 <img className="userIcon hover:cursor-pointer hover:text-white" src="/img/pngwing.com.svg" alt="userIcon"/>
                                              <span className='text-sm'>  {member.nickname}님</span>
-                                </span>}
+                                </button>}
                         <div className='signInBtn'>
                             {/* <FaUser className='FaUser' /> */}
                             {!isLogin && <button className="hover:cursor-pointer hover:text-white"
@@ -105,10 +105,10 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                     <div>
                         <div className='userSection'>
                             {isLogin &&
-                                <span className='flex items-center hover:cursor-pointer hover:text-white' style={{fontFamily: 'Sunflower, sans-serif'}}>
+                                <button onClick={() => navigate('/profile')} className='flex items-center hover:cursor-pointer hover:text-white' style={{fontFamily: 'Sunflower, sans-serif'}}>
                                                 <img className="userIcon" src="/img/pngwing.com.svg" alt="userIcon"/>
                                              <span className='text-sm'>  {member.nickname}님</span>
-                                </span>}
+                                </button>}
                             <div className='signInBtn'>
                                 {/* <FaUser className='FaUser' /> */}
                                 {!isLogin && <button className="className='hover:cursor-pointer hover:text-white"
