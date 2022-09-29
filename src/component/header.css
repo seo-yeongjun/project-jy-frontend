@@ -135,14 +135,6 @@
     outline: none;
 }
 
-.mobile_searchInput-btn {
-    color: burlywood;
-    position: absolute;
-    size: 18px;
-    right: 13px;
-    top: 12px;
-}
-
 .mobile_userSection {
     margin-right: 1rem;
     padding-top: 0.1rem;

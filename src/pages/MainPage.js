@@ -5,7 +5,7 @@ import {SaleRow} from "../component/SaleRow";
 import word from "../commonWord/word";
 
 
-const MainPage = ({isLogin, member, departments}) => {
+const MainPage = ({departments}) => {
     const navigate = useNavigate();
     const [bookCount, setBookCount] = useState(0);
 

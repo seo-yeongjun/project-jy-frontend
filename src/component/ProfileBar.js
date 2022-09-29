@@ -5,7 +5,7 @@ import './header.css';
 import {useNavigate} from "react-router";
 
 
-const ProfileBar = ({member, isLogin, isVisible, setIsVisible}) => {
+const ProfileBar = ({isLogin, isVisible, setIsVisible}) => {
 
     const [windowSize, setWindowSize] = useState(window.innerWidth);
 

@@ -120,12 +120,12 @@ const JoinPage = () => {
             setPasswordInfo([]);
             return
         }
-        if (password.length < 10 || password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi) < 0) {
+        if (password.length < 10 || password.search(/[`~!@#$%^&*|₩'";:/?]/gi) < 0) {
             if (password.length < 10) {
                 result = [...result, (<span className="text-xs text-red-400 block">10자 이상 이어야 합니다.</span>)]
                 setPasswordInfo(result)
             }
-            if (password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi) < 0) {
+            if (password.search(/[`~!@#$%^&*|₩'";:/?]/gi) < 0) {
                 result = [...result, (<span className="text-xs text-red-400 block">특수 문자가 포함되어야 합니다.</span>)]
                 setPasswordInfo(result)
             }

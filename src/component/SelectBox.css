@@ -1,7 +1,4 @@
-.row {
-    color: white;
-    background-color: black;
-}
+
 
 .slider {
     width: 100%;
@@ -37,12 +34,6 @@
     cursor: pointer;
     transform: scale(1.08);
 }
-
-.poster-large:hover {
-    transform: scale(1.1);
-    opacity: 1;
-}
-
 
 @media screen and (min-width: 1200px) {
     .poster img{

@@ -80,13 +80,13 @@ export const SaleRow = ({departments}) => {
     useEffect(() => {
         //search가 있을 경우
         if (value === undefined || value === '' || value == null) {
-            fetchRow(value)
+            fetchRow()
         } else {
             searchRow(value)
         }
     }, [value]);
 
-    const fetchRow = async (value) => {
+    const fetchRow = async () => {
         setIsLoading(true)
         await axios({method: 'GET', url: `/info/book/page/${page}`}).then((res) => {
             if (res.data.content.length === 0) {

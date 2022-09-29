@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {useNavigate} from "react-router";
 import {getCountSale, getCountViews} from "../api/sale";
 import {changeEmail, changeNickname, changePassword, deleteMember, getMemberInfo, logout} from "../api/auth";
-//profile management page password change nickname change withdrawal page react, tailwindcss, firebase
 const ProfilePage = ({member, isLogin, setMember, setIsLogin}) => {
 
         const navigate = useNavigate()
