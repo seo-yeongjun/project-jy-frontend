@@ -16,7 +16,6 @@ export const postSale = async (sale, setIsPost, memberId) => {
         } else {
             setIsPost(false)
         }
-        console.log(res.data)
     })
 }
 

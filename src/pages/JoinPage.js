@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import word from "../commonWord/word";
-import {join, existMemberId, existNickname, existEmail} from "../api/auth";
+import {existEmail, existMemberId, existNickname, join} from "../api/auth";
 import {useNavigate} from "react-router";
 
 const JoinPage = () => {
@@ -51,7 +51,6 @@ const JoinPage = () => {
             message = [...message, "닉네임 중복체크를 해주세요."]
         }
         if(passwordInfo.length !== 0){
-            console.log(passwordInfo)
             message = [...message, "비밀번호를 확인해주세요."]
         }
         if (!checkChecker) {

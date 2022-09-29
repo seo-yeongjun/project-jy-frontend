@@ -9,7 +9,6 @@ export const getDepartments = async (setDepartments) => {
 
 export const getBookById = async (id, setDetail) => {
     await axios.get(`/info/book/${id}`).then((res) => {
-        console.log(res.data)
         setDetail(res.data)
     })
 }
