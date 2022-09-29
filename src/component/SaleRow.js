@@ -43,7 +43,7 @@ export const SaleRow = ({departments}) => {
                 {li.soldOut ? <div
                     className='bg-red-500 left-[2rem] text-sm sm:text-xl top-[7%] rounded p-1 text-white text-center font-bold absolute z-10'>거래
                     완료</div> : ''}
-                <div className='text-sm text-right mr-2 text-gray-600'><span className='text-blue-500 mr-2'>조회수: {li.view}</span> {timeSince(li.date)}</div>
+                <div className='text-sm text-right mr-2 text-gray-600 pt-1'><span className='text-blue-500 mr-2'>조회수: {li.view}</span> {timeSince(li.date)}</div>
                 <div className={li.soldOut ? 'opacity-40 rounded shadow-xl p-2 flex ' : 'rounded shadow-xl px-2 pb-2 flex'}>
                     <img className='max-h-40 max-w-[8rem] m-auto mx-2' src={li.book.thumbnail}
                          alt={li.book.title}/>
@@ -131,7 +131,7 @@ export const SaleRow = ({departments}) => {
     }
 
     return (
-        <div className="min-h-[50vh] bg-white bg-opacity-50 rounded w-10/12 mx-auto mt-4 p-2 shadow-2xl">
+        <div className="min-h-[50vh] bg-white bg-opacity-50 rounded w-full md:w-10/12 mx-auto mt-4 p-2 shadow-2xl">
             <div className='w-full'>
                 <div className='font-bold text-center'>
                     {//search가 있을 경우

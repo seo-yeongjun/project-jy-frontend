@@ -27,7 +27,7 @@ const Layout = ({isLogin, logoutHandler, member}) => {
         <ProfileBar member={member} isLogin={isLogin} isVisible={isVisible} setIsVisible={setIsVisible}/>
         {/* <Header isLogin={isLogin} logoutHandler={logoutHandler}/> */}
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
-            <div className={path.pathname === '/' ? 'pt-32 pb-24' : 'pt-48 pb-24'}>
+            <div className={path.pathname === '/' ? 'pt-32 pb-24' : 'pt-36 pb-24'}>
                 <Outlet/>
             </div>
         </div>
@@ -77,7 +77,7 @@ function App() {
                            element={<HistoryPage isLogin={isLogin} member={member}></HistoryPage>}></Route>
                     <Route path="review" element={<ReviewPage departments={departments}/>}></Route>
                     <Route path="sale/:id" element={<DetailPage departments={departments} />}></Route>
-                    <Route path="profile" element={<ProfilePage member={member} isLogin={isLogin}/>}></Route>
+                    <Route path="profile" element={<ProfilePage member={member} setMember={setMember} setIsLogin={setIsLogin} isLogin={isLogin}/>}></Route>
                 </Route>
             </Routes>
         </ScrollToTop>

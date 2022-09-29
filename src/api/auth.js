@@ -57,7 +57,7 @@ export const existEmail = async (email, setEmailChecker, emailInput) => {
         }
     })
 }
-export const logout = (setIsLogin, setMember,setAccessToken,setExpireTime) => {
+export const logout = (setIsLogin, setMember, setAccessToken, setExpireTime) => {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("tokenExpiresIn")
     setExpireTime(null)
@@ -69,5 +69,23 @@ export const getMemberInfo = async (setMember, setIsLogin) => {
     await axios.get('/member/info').then((member) => {
         setMember(member.data)
         setIsLogin(true)
+    })
+}
+
+export const changePassword = async (memberId,exPassword, newPassword, setResponse) => {
+    await axios.post(`/member/changePassword?memberId=${memberId}`, {exPassword: exPassword, newPassword: newPassword}).then((res) => {
+        setResponse(res.data.message)
+    })
+}
+
+export const changeNickname = async (memberId,nickname, setResponse) => {
+    await axios.post(`/member/changeNickname?memberId=${memberId}`, {nickname: nickname}).then((res) => {
+        setResponse(res.data.message)
+    })
+}
+
+export const changeEmail = async (memberId,email, setResponse) => {
+    await axios.post(`/member/changeEmail?memberId=${memberId}`, {email: email}).then((res) => {
+        setResponse(res.data.message)
     })
 }

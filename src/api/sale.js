@@ -39,3 +39,15 @@ export const postSaleUpdate = async (saleId, memberId, setUpdateChange) => {
         setUpdateChange(res.data)
     })
 }
+
+export const getCountSale = async (setCountSale,memberId) => {
+    await axios.get(`/sale/book/count?memberId=${memberId}`).then((res) => {
+        setCountSale(res.data)
+    })
+}
+
+export const getCountViews = async (setCountViews,memberId) => {
+    await axios.get(`/sale/book/view?memberId=${memberId}`).then((res) => {
+        setCountViews(res.data)
+    })
+}

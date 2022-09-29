@@ -3,7 +3,6 @@
     padding: 0;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap');
 
 .header {
     z-index:999;
@@ -77,15 +76,6 @@
     justify-content: center;
 }
 
-.signInBtn button, .signUpBtn button {
-    font-size: 15px;
-    /* color: gray; */
-    font-family:'Sunflower', sans-serif ;
-}
-
-.FaUser, .FaSignInAlt {
-    font-size: 27px;
-}
 
 
 /*  모바일 모드 */
@@ -177,7 +167,6 @@
 
 .bar {
     width: 70%;
-    font-family: 'Sunflower', sans-serif;
     display:flex;
     justify-content: space-between;
 }

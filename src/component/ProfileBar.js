@@ -5,7 +5,7 @@ import './header.css';
 import {useNavigate} from "react-router";
 
 
-const ProfileBar = ({member, isLogin, isVisible}) => {
+const ProfileBar = ({member, isLogin, isVisible, setIsVisible}) => {
 
     const [windowSize, setWindowSize] = useState(window.innerWidth);
 
@@ -37,13 +37,21 @@ const ProfileBar = ({member, isLogin, isVisible}) => {
     return (
         <div>
             <div className='bar_wrapper' ref={barWrapperRef}>
-                <div className='bar'>
+                <div className='bar mb-1'>
                     <div className='class_review'>
                         <FontAwesomeIcon style={{fontSize: '15px'}} icon={faPencil}/>
-                        <span onClick={()=>navigate('/review')} style={{fontSize: '15px'}} className='ml-2'>과목후기</span>
+                        <span onClick={() => {
+                            navigate('/review')
+                            setIsVisible(false)
+                        }} style={{fontSize: '15px'}} className='ml-2'>과목후기</span>
                     </div>
                     <div className='profile'>
-                        {isLogin ? <span onClick={()=>navigate('/sale/history')} className='hover:cursor-pointer hover:text-white' style={{fontSize: '15px'}}>판매내역</span> :''}
+                        {isLogin ? <span onClick={() => {
+                            navigate('/sale/history')
+                            setIsVisible(false)
+                        }}
+                                         className='hover:cursor-pointer hover:text-white'
+                                         style={{fontSize: '15px'}}>판매내역</span> : ''}
                     </div>
                 </div>
             </div>

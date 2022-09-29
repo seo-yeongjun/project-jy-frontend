@@ -53,7 +53,7 @@ const LoginPage = ({setIsLogin, setExpireTime, setAccessToken,isLogin}) => {
                 <button onClick={onSubmit}
                         className="mt-3 text-white bg-amber-300 hover:bg-amber-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">로그인
                 </button>
-                <p className="mt-4">회원이 아니신가요? <button className="text-blue-500">회원가입</button></p>
+                <p className="mt-4">회원이 아니신가요? <button className="text-blue-500" onClick={()=>navigate("/join")}>회원가입</button></p>
             </form>
         </div>
     )

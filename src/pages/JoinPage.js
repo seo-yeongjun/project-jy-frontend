@@ -115,7 +115,7 @@ const JoinPage = () => {
     return (
 
         <div
-            className="m-auto border rounded  w-11/12 sm:w-11/12 md:w-1/2 lg:w-1/3 p-6 border-amber-500 shadow-xl bg-white bg-opacity-90">
+            className="m-auto border rounded  w-full sm:w-11/12 md:w-1/2 lg:w-1/3 py-4 px-2 border-amber-500 shadow-xl bg-white bg-opacity-90">
             <h1 className="text-3xl mb-3 font-bold">회원가입</h1>
             <h3 className="mb-9">{word.title}에 오신걸 환영합니다.</h3>
             <form>

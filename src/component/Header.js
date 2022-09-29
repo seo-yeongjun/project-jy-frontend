@@ -54,7 +54,7 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                     </div>
 
                     <div className='mobile_userSection'>
-                        {isLogin && <button  onClick={() => navigate('/profile')} className='flex items-center' style={{fontFamily: 'Sunflower, sans-serif'}}>
+                        {isLogin && <button  onClick={() => navigate('/profile')} className='flex items-center'>
                                                 <img className="userIcon hover:cursor-pointer hover:text-white" src="/img/pngwing.com.svg" alt="userIcon"/>
                                              <span className='text-sm'>  {member.nickname}님</span>
                                 </button>}
@@ -73,7 +73,7 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                                                  onClick={() => navigate('/join')}>회원가입</button>}
                         </div>
 
-                        <FontAwesomeIcon style={{fontSize: '20px'}} icon={faBars} onClick={onClickMenuBars}/>
+                        <FontAwesomeIcon icon={faBars} onClick={onClickMenuBars}/>
                     </div>
                 </div>
                 <div className='mobile_lowerPart'>
@@ -105,7 +105,7 @@ const Header = ({isLogin, logoutHandler, setIsVisible, isVisible, member}) => {
                     <div>
                         <div className='userSection'>
                             {isLogin &&
-                                <button onClick={() => navigate('/profile')} className='flex items-center hover:cursor-pointer hover:text-white' style={{fontFamily: 'Sunflower, sans-serif'}}>
+                                <button onClick={() => navigate('/profile')} className='flex items-center hover:cursor-pointer hover:text-white'>
                                                 <img className="userIcon" src="/img/pngwing.com.svg" alt="userIcon"/>
                                              <span className='text-sm'>  {member.nickname}님</span>
                                 </button>}
