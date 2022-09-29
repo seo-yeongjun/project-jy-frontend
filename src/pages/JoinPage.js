@@ -65,14 +65,26 @@ const JoinPage = () => {
     const check = {
         memberIdCheck: (e) => {
             e.preventDefault()
+            if (memberId.length < 4) {
+                alert("아이디는 4자 이상 입력해주세요.")
+                return
+            }
             existMemberId(memberId,setMemberIdChecker,memberIdInput)
         },
         nicknameCheck: (e) => {
             e.preventDefault()
+            if(nickname.length<2){
+                alert("닉네임은 2글자 이상 입력해주세요.")
+                return
+            }
          existNickname(nickname,setNicknameChecker,nicknameInput)
 
         }, emailCheck:  (e) => {
             e.preventDefault()
+            if(!email.includes("@")){
+                alert("이메일 형식이 아닙니다.")
+                return
+            }
             existEmail(email,setEmailChecker,emailInput)
         }
     }
