@@ -9,13 +9,11 @@ export const login = async (memberId, password) => {
 }
 
 //회원가입
-export const join = async (email, password, memberId, nickname) => {
+export const join = async (email, password, memberId, nickname,setResponse) => {
     await axios.post('/auth/join', {
         email: email, password: password, memberId: memberId, nickname: nickname
     }).then((res) => {
-        //회원가입 성공
-    }).catch((err) => {
-        //회원가입 실패
+       setResponse(res.data.message);
     })
 }
 //아이디 존재 체크
@@ -72,20 +70,29 @@ export const getMemberInfo = async (setMember, setIsLogin) => {
     })
 }
 
-export const changePassword = async (memberId,exPassword, newPassword, setResponse) => {
-    await axios.post(`/member/changePassword?memberId=${memberId}`, {exPassword: exPassword, newPassword: newPassword}).then((res) => {
+export const changePassword = async (memberId, exPassword, newPassword, setResponse) => {
+    await axios.post(`/member/changePassword?memberId=${memberId}`, {
+        exPassword: exPassword,
+        newPassword: newPassword
+    }).then((res) => {
         setResponse(res.data.message)
     })
 }
 
-export const changeNickname = async (memberId,nickname, setResponse) => {
+export const changeNickname = async (memberId, nickname, setResponse) => {
     await axios.post(`/member/changeNickname?memberId=${memberId}`, {nickname: nickname}).then((res) => {
         setResponse(res.data.message)
     })
 }
 
-export const changeEmail = async (memberId,email, setResponse) => {
+export const changeEmail = async (memberId, email, setResponse) => {
     await axios.post(`/member/changeEmail?memberId=${memberId}`, {email: email}).then((res) => {
+        setResponse(res.data.message)
+    })
+}
+
+export const deleteMember = async (memberId, originPassword, setResponse) => {
+    await axios.post(`/member/delete?memberId=${memberId}`, {password: originPassword}).then((res) => {
         setResponse(res.data.message)
     })
 }

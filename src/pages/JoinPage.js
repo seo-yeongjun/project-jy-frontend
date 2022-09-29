@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import word from "../commonWord/word";
-import {join,existMemberId,existNickname,existEmail} from "../api/auth";
+import {join, existMemberId, existNickname, existEmail} from "../api/auth";
+import {useNavigate} from "react-router";
 
 const JoinPage = () => {
     const [nickname, setNickname] = useState("")
@@ -13,6 +14,10 @@ const JoinPage = () => {
     const [memberIdChecker, setMemberIdChecker] = useState(false)
     const [nicknameChecker, setNicknameChecker] = useState(false)
     const [emailChecker, setEmailChecker] = useState(false)
+    const [checkChecker, setCheckChecker] = useState(false)
+    const [response, setResponse] = useState("")
+
+    const navigate = useNavigate()
 
     const memberIdHandler = (e) => {
         setMemberId(e.target.value)
@@ -45,15 +50,33 @@ const JoinPage = () => {
         if (!nicknameChecker) {
             message = [...message, "닉네임 중복체크를 해주세요."]
         }
+        if(passwordInfo.length !== 0){
+            console.log(passwordInfo)
+            message = [...message, "비밀번호를 확인해주세요."]
+        }
+        if (!checkChecker) {
+            message = [...message, "약관에 동의해주세요."]
+        }
 
         if (message.length > 0) {
             alert(message.join("\n"))
             return
         }
 
-        const res =join(email, password, memberId, nickname)
-        console.log(res)
+       join(email, password, memberId, nickname, setResponse)
     }
+
+    useEffect(() => {
+        if(response === ""){
+
+        }else if(response === "success"){
+            alert("회원가입이 완료되었습니다.")
+            navigate("/login")
+        }
+        else{
+            alert(response)
+        }
+    }, [response])
 
 
     const memberIdInput = React.createRef();
@@ -69,23 +92,23 @@ const JoinPage = () => {
                 alert("아이디는 4자 이상 입력해주세요.")
                 return
             }
-            existMemberId(memberId,setMemberIdChecker,memberIdInput)
+            existMemberId(memberId, setMemberIdChecker, memberIdInput)
         },
         nicknameCheck: (e) => {
             e.preventDefault()
-            if(nickname.length<2){
+            if (nickname.length < 2) {
                 alert("닉네임은 2글자 이상 입력해주세요.")
                 return
             }
-         existNickname(nickname,setNicknameChecker,nicknameInput)
+            existNickname(nickname, setNicknameChecker, nicknameInput)
 
-        }, emailCheck:  (e) => {
+        }, emailCheck: (e) => {
             e.preventDefault()
-            if(!email.includes("@")){
+            if (!email.includes("@")) {
                 alert("이메일 형식이 아닙니다.")
                 return
             }
-            existEmail(email,setEmailChecker,emailInput)
+            existEmail(email, setEmailChecker, emailInput)
         }
     }
 
@@ -136,13 +159,13 @@ const JoinPage = () => {
                            className="block mb-2 text-sm font-medium float-left text-gray-600">아이디
                     </label>
                     <div className="flex w-full">
-                        <input type="text" id="memberId" ref={memberIdInput}
-                               className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                               placeholder="아이디 입력" required="" value={memberId} onChange={memberIdHandler}/>
-                        <button onClick={check.memberIdCheck}
-                                className="w-1/5 border rounded ml-2 bg-blue-300 text-white text-sm hover:bg-blue-200">중복
-                            확인
-                        </button>
+                            <input type="text" id="memberId" ref={memberIdInput} onKeyDown={e=>{if(e.key==='Enter')check.memberIdCheck(e)}}
+                                   className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="아이디 입력" required="" value={memberId} onChange={memberIdHandler}/>
+                            <button onClick={check.memberIdCheck}
+                                    className="w-1/5 border rounded ml-2 bg-blue-300 text-white text-sm hover:bg-blue-200">중복
+                                확인
+                            </button>
                     </div>
                 </div>
                 <div>
@@ -150,10 +173,10 @@ const JoinPage = () => {
                            className="block mb-2 text-sm font-medium float-left text-gray-600">이메일
                     </label>
                     <div className="w-full flex">
-                        <input type="text" id="email" ref={emailInput}
+                        <input type="text" id="email" ref={emailInput} onKeyDown={e=>{if(e.key==='Enter')check.emailCheck(e)}}
                                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                placeholder="이메일 입력" value={email} onChange={emailHandler} required=""/>
-                        <button onClick={check.emailCheck}
+                        <button
                                 className="w-1/5 border rounded ml-2 bg-blue-300 text-white text-sm hover:bg-blue-200">중복
                             확인
                         </button>
@@ -164,7 +187,7 @@ const JoinPage = () => {
                            className="block mb-2 text-sm font-medium float-left text-gray-600">닉네임
                     </label>
                     <div className="w-full flex">
-                        <input type="text" id="nickname" ref={nicknameInput}
+                        <input type="text" id="nickname" ref={nicknameInput} onKeyDown={e=>{if(e.key==='Enter')check.nicknameCheck(e)}}
                                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                placeholder="닉네임 입력" value={nickname} onChange={nicknameHandler} required=""/>
                         <button onClick={check.nicknameCheck}
@@ -177,7 +200,7 @@ const JoinPage = () => {
                     <label htmlFor="password"
                            className="block mb-2 text-sm font-medium float-left text-gray-600">비밀번호
                     </label>
-                    <input type="password" id="password"
+                    <input type="password" id="password" onKeyDown={e=>{if(e.key==='Enter') onSubmit(e)}}
                            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                            placeholder="비밀번호 입력" value={password} onChange={passwordHandler} required=""/>
                 </div>
@@ -186,14 +209,14 @@ const JoinPage = () => {
                     <label htmlFor="password2"
                            className="block mb-2 text-sm font-medium float-left text-gray-600">비밀번호 재입력
                     </label>
-                    <input type="password" id="password2"
+                    <input type="password" id="password2" onKeyDown={e=>{if(e.key==='Enter') onSubmit(e)}}
                            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                            placeholder="비밀번호 재입력" value={password2} onChange={password2Handler} required=""/>
                 </div>
                 {passwordEqual ? null : <span className="text-xs text-red-400">입력하신 비밀번호와 다릅니다.</span>}
                 <div className="flex items-start mb-6 mt-4">
                     <div className="flex items-center h-5">
-                        <input id="remember" type="checkbox" value=""
+                        <input id="remember" type="checkbox" value="checkChecker" onChange={()=>setCheckChecker(!checkChecker)}
                                className="w-4 h-4 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                                required=""/>
                     </div>

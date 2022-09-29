@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useNavigate} from "react-router";
 import {getCountSale, getCountViews} from "../api/sale";
-import {changeEmail, changeNickname, changePassword, getMemberInfo} from "../api/auth";
+import {changeEmail, changeNickname, changePassword, deleteMember, getMemberInfo, logout} from "../api/auth";
 //profile management page password change nickname change withdrawal page react, tailwindcss, firebase
 const ProfilePage = ({member, isLogin, setMember, setIsLogin}) => {
 
@@ -20,6 +20,7 @@ const ProfilePage = ({member, isLogin, setMember, setIsLogin}) => {
         const [passwordError, setPasswordError] = React.useState('')
         const [nicknameError, setNicknameError] = React.useState('')
         const [response, setResponse] = React.useState('')
+        const [showModal, setShowModal] = React.useState(false)
 
 
         useEffect(() => {
@@ -29,14 +30,14 @@ const ProfilePage = ({member, isLogin, setMember, setIsLogin}) => {
         }, [isLogin, navigate])
 
         useEffect(() => {
-            if(response !== ''){
+            if (response !== '') {
                 alert(response)
                 getMemberInfo(setMember, setIsLogin)
                 setResponse('')
                 setPasswordError('')
                 setEmailError('')
                 setNicknameError('')
-                if(response.includes("성공")){
+                if (response.includes("성공")) {
                     setNickname('')
                     setPassword('')
                     setPasswordCheck('')
@@ -49,7 +50,7 @@ const ProfilePage = ({member, isLogin, setMember, setIsLogin}) => {
         useEffect(() => {
             getCountViews(setCountViews, member.memberId)
             getCountSale(setCountSale, member.memberId)
-        },[member.memberId])
+        }, [member.memberId])
 
         const handleIs = (npe) => {
             if (npe === 'nickname') {
@@ -122,6 +123,13 @@ const ProfilePage = ({member, isLogin, setMember, setIsLogin}) => {
             }
         }
 
+        const handleDelete = () => {
+            setShowModal(false)
+            deleteMember(member.memberId, originPassword, setResponse)
+            if(response.includes("성공")){
+                logout()
+            }
+        };
         return (
             <div>
                 <div
@@ -222,12 +230,65 @@ const ProfilePage = ({member, isLogin, setMember, setIsLogin}) => {
                         <div className='my-2 text-xs md:text-sm'>
                             회원 탈퇴를 하시면 모든 판매글이 삭제 되며 복구 할 수 없습니다.
                         </div>
-                        <button
-                            className="bg-red-500 hover:bg-red-700 text-white w-fit px-2 py-1 mx-1 font-bold rounded focus:outline-none focus:shadow-outline mt-1">회원
+                        <button onClick={() => setShowModal(true)}
+                                className="bg-red-500 hover:bg-red-700 text-white w-fit px-2 py-1 mx-1 font-bold rounded focus:outline-none focus:shadow-outline mt-1">회원
                             탈퇴
                         </button>
                     </div>
                 </div>
+                {showModal ? (
+                    <>
+                        <div
+                            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none"
+                        >
+                            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                                {/*content*/}
+                                <div
+                                    className="border-0 rounded-lg shadow-lg z-40 relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                    {/*header*/}
+                                    <div
+                                        className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                                        <h3 className="text-3xl font-semibold">
+                                            회원 탈퇴 ✂️
+                                        </h3>
+                                        <button
+                                            className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none outline-none focus:outline-none"
+                                            onClick={() => setShowModal(false)}
+                                        >
+                    <span
+                        className="bg-transparent text-black opacity-30 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                                        </button>
+                                    </div>
+                                    {/*body*/}
+                                    <div className="relative px-6 py-5 flex-auto">
+                                        <div className="mt-4 text-slate-500 text-lg leading-relaxed">
+                                            회원 탈퇴를 하시면, 등록 하신 모든 판매글이 삭제됩니다.<br/>
+                                            그리고, 복구 할 수 없습니다.<br/>
+                                        </div>
+                                    </div>
+                                    <span className='font-bold text-lg'>정말 탈퇴 하시겠습니까?</span>
+                                    {/*footer*/}
+                                    <div
+                                        className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                        <input className='w-2/3 p-1 my-auto border-[1.5px] border-gray-200 rounded' onChange={handleOriginPassword} value={originPassword}
+                                               type="password" placeholder="비밀번호 입력"/>
+                                        <button
+                                            className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-2 ml-5 py-2 my-auto rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                            type="button"
+                                            onClick={() => handleDelete()}
+                                        >
+                                            탈퇴 하기
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="opacity-25 fixed inset-0 z-20 bg-black"
+                                 onClick={() => setShowModal(false)}></div>
+                        </div>
+                    </>
+                ) : null}
             </div>
         )
     }
