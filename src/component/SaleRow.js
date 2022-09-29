@@ -149,17 +149,17 @@ export const SaleRow = ({departments}) => {
                             <a className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded my-2'
                                href={`https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=Used&SearchWord=${value || ''}&x=0&y=0`}
                                target="_blank" rel="noopener noreferrer">
-                                {`알라딘 중고매장에서 ${value} 찾아보기`}
+                                {`알라딘 중고매장에서 ${value || ''} 찾아보기`}
                             </a>
                             <a className='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded my-2'
                                href={`http://m.yes24.com/Search?query=%${value || ''}&domain=USED_GOODS&viewMode=&page=1&size=24`}
                                target="_blank" rel="noopener noreferrer">
-                                {`yes24 중고매장에서 ${value} 찾아보기`}
+                                {`yes24 중고매장에서 ${value || ''} 찾아보기`}
                             </a>
                             <a className='bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded my-2'
                                href={`https://search.kyobobook.co.kr/web/search?vPstrKeyWord=${value || ''}&orderClick=&collName=USED&searchPcondition=1`}
                                target="_blank" rel="noopener noreferrer">
-                                {`교보문고 중고매장에서 ${value} 찾아보기`}
+                                {`교보문고 중고매장에서 ${value || ''} 찾아보기`}
                             </a>
                         </div>
                     </div>
