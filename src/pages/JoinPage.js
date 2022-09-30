@@ -179,7 +179,7 @@ const JoinPage = () => {
                         }}
                                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                placeholder="이메일 입력" value={email} onChange={emailHandler} required=""/>
-                        <button
+                        <button onClick={check.emailCheck}
                             className="w-1/5 border rounded ml-2 bg-blue-300 text-white text-sm hover:bg-blue-200">중복
                             확인
                         </button>

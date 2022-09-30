@@ -54,6 +54,5 @@
     "autoprefixer": "^10.4.11",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
-  },
-  "proxy": "http://localhost:8088"
+  }
 }

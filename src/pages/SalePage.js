@@ -207,7 +207,7 @@ const SalePage = ({isLogin, member, departments}) => {
                                 </label>
                                 <input onChange={lectureHandler} value={lectureTitle}
                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                       id="lecture" type="text" placeholder="ex) 채플"/>
+                                       id="lecture" type="text" placeholder="ex) 강의와 관련 없는 책은 '없음' 으로 입력해 주세요."/>
                                 {
                                     (lectures.length > 0) ?
                                         <SelectLectures lectures={lectures} setLecture={setLecture}
