@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './SelectBox.css'
 
 const SelectLectures = ({lectures, setLecture, setExistLecture, setLectureTitle, departments}) => {
-
+    const [flag, setFlag] = useState(false);
 
     const handleOptionClick = (option) => {
-        setLecture(option);
-        setLectureTitle('')
-        setExistLecture(true);
+        if(!flag){
+            setLecture(option);
+            setLectureTitle('')
+            setExistLecture(true);
+            setFlag(true);
+        }
     };
    const departmentName = (optionId) =>{
          let department = departments.filter(department => department.id === optionId)

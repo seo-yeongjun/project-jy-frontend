@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import SelectLectures from "../component/SelectLectures";
 import useDebounce from "../hooks/useDebounce";
-import {getLectureReviewsByLectureId, getLecturesByName} from "../api/info";
+import {getAllLectureReviews, getLectureReviewsByLectureId, getLecturesByName} from "../api/info";
 
 const ReviewPage = ({departments}) => {
     const [search, setSearch] = React.useState('');
@@ -33,6 +33,9 @@ const ReviewPage = ({departments}) => {
             getLectureReviewsByLectureId(setLectureReviews, lecture.id)
         }
     }, [existLecture,lecture]);
+    useEffect(() => {
+        getAllLectureReviews(setLectureReviews)
+    },[])
     return (
         <div className='container m-auto'>
             <div className="border p-2 rounded bg-white mb-2 bg-opacity-70">
@@ -52,11 +55,12 @@ const ReviewPage = ({departments}) => {
                 </div>
                 {existLecture ?
                     <div>
-                        <span className='font-bold'>&lt;{departmentName(parseInt(lecture.departmentId))}&gt; {lecture.title}</span><span> 후기</span>
+                        <span className='font-bold'>&lt;{departmentName(parseInt(lecture.departmentId))}&gt; {lecture.title}</span><span> 검색결과</span>
                     </div> : <div className="mb-4"></div>}
                 { lectureReviews.length > 0 ?
                     lectureReviews.map(lectureReview => (
                         <div className="border p-2 rounded bg-white mb-2 bg-opacity-70" key={lectureReview.id}>
+                            <span className='font-bold'>&lt;{departmentName(parseInt(lectureReview.lecture.departmentId))}&gt; {lectureReview.lecture.title}</span><span> 후기</span>
                             <div className="mb-2 text-start">
                                 <span className="text-gray-700 text-sm font-bold mb-2">작성자 </span>
                                 <span className="text-gray-700 text-sm mb-2">{lectureReview.member.nickname}</span>
