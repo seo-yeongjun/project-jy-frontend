@@ -27,7 +27,7 @@ const Layout = ({isLogin, logoutHandler, member}) => {
         <ProfileBar member={member} isLogin={isLogin} isVisible={isVisible} setIsVisible={setIsVisible}/>
         {/* <Header isLogin={isLogin} logoutHandler={logoutHandler}/> */}
         <div className='headerBg' style={{backgroundImage: 'url(/img/bg-books.jpg)'}}>
-            <div className={path.pathname === '/' ? 'pt-32 pb-24' : 'pt-36 pb-24'}>
+            <div className={path.pathname === '/' ? 'pt-32 pb-24' : 'pt-36 pb-24'} style={window.innerWidth<768?{paddingTop: '2rem'}:{}}>
                 <Outlet/>
             </div>
         </div>
