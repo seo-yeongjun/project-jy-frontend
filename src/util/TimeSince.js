@@ -1,5 +1,6 @@
 export const timeSince = (date) => {
-    const seconds = Math.floor((new Date() - Date.parse(date)) / 1000);
+    const time = new Date();
+    const seconds = Math.floor((time.setHours(time.getHours()-9) - Date.parse(date)) / 1000);
     let interval = seconds / 31536000;
     if (interval > 1) {
         return Math.floor(interval) + "년 전";
@@ -24,7 +25,8 @@ export const timeSince = (date) => {
 }
 
 export const threeDaysCheck = (date) => {
-    const seconds = Math.floor((new Date() - Date.parse(date)) / 1000);
+    const time = new Date();
+    const seconds = Math.floor((time.setHours(time.getHours()-9) - Date.parse(date)) / 1000);
     const interval = seconds / 86400;
     return interval >= 3;
 }

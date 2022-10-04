@@ -248,7 +248,7 @@ const SalePage = ({isLogin, member, departments}) => {
                             <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="description">
                                 설명
                             </label>
-                            <ToastEditor setContent={setContent}></ToastEditor>
+                            <ToastEditor setContent={setContent} memberId={member.memberId}></ToastEditor>
                         </div>
                         <div className="border p-2 rounded bg-white mb-2">
                             <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
