@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {timeSince} from "../util/TimeSince";
 import {getBookById, getDepartments, increaseViewCount} from "../api/info";
 import Parser from 'html-react-parser';
@@ -7,7 +7,7 @@ import Parser from 'html-react-parser';
 const DetailPage = ({departments}) => {
     const location = useLocation();
     const pathId = location.pathname.split('/')[2];
-    const [count, setCount] = useState(false);
+    const [count, setCount] = useState(0);
     const [detail, setDetail] = useState({
         id: '',
         content: '',
@@ -21,6 +21,7 @@ const DetailPage = ({departments}) => {
     const [detailDepartments, setDetailDepartments] = useState(departments);
     const [connectTemp, setConnectTemp] = useState(false);
 
+    const navigate = useNavigate();
     useEffect(() => {
         if (location.state !== null) {
             setDetail(location.state.detail)
@@ -36,7 +37,11 @@ const DetailPage = ({departments}) => {
 
     useEffect(() => {
         if (detail.id === '') {
-            setCount(!count)
+            if (count <= 10) {
+                setCount(count + 1)
+            }else{
+                navigate('/notFound')
+            }
         } else {
             increaseViewCount(detail.id)
             setDetail({...detail, view: detail.view + 1})

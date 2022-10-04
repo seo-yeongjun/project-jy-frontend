@@ -16,6 +16,7 @@ import {getDepartments} from "./api/info";
 import HistoryPage from "./pages/HistoryPage";
 import DetailPage from "./pages/DetailPage";
 import ProfilePage from "./pages/ProfilePage";
+import NotFound from "./pages/NotFound";
 
 
 const Layout = ({isLogin, logoutHandler, member}) => {
@@ -78,6 +79,8 @@ function App() {
                     <Route path="review" element={<ReviewPage departments={departments}/>}></Route>
                     <Route path="sale/:id" element={<DetailPage departments={departments} />}></Route>
                     <Route path="profile" element={<ProfilePage member={member} setMember={setMember} setIsLogin={setIsLogin} isLogin={isLogin}/>}></Route>
+                    <Route path="*" element={<NotFound/>}></Route>
+                    <Route path="notFound" element={<NotFound/>}></Route>
                 </Route>
             </Routes>
         </ScrollToTop>
