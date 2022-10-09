@@ -4,6 +4,7 @@ import axios from "../api/axios";
 import {useLocation} from "react-router";
 import {Link} from "react-router-dom";
 import {timeSince} from "../util/TimeSince";
+import {getDepartments} from "../api/info";
 
 export const SaleRow = ({departments}) => {
     const useQuery = () => {
@@ -18,6 +19,7 @@ export const SaleRow = ({departments}) => {
     const [hasMore, setHasMore] = useState(true);
     const [soldOutChange, setSoldOutChange] = useState(false);
     const [value, setValue] = useState(useQuery().get('q'));
+    const [detailDepartments, setDetailDepartments] = useState(departments);
 
     useEffect(() => {
         setSoldOutChange(false)
@@ -28,17 +30,25 @@ export const SaleRow = ({departments}) => {
         setValue(q);
     }, [q])
 
+    useEffect(() => {
+        if (departments.length > 0) {
+            setDetailDepartments(departments)
+        } else {
+            getDepartments(setDetailDepartments)
+        }
+    },[])
+
     const handleSoldOutChange = () => {
         setSoldOutChange(!soldOutChange)
     }
 
     const departmentName = (optionId) => {
-        let department = departments.filter(department => department.id === optionId)
+        let department = detailDepartments.filter(department => department.id === optionId)
         return department[0].name
     }
 
     const item = (li) =>
-        <Link to={`/sale/${li.id}`} state={{detail: li}}>
+        <Link to={`/saleBook/${li.id}`} state={{detail: li}}>
             <div className="w-full relative bg-white bg-opacity-90 hover:bg-gray-200 rounded shadow my-2">
                 {li.soldOut ? <div
                     className='bg-red-500 left-[2rem] text-sm sm:text-xl top-[7%] rounded p-1 text-white text-center font-bold absolute z-10'>거래

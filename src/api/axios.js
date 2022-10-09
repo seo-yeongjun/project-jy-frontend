@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = "http://3.37.76.20:8000"
+const url = "https://skhubook.store"
 
 const instance = axios.create({
     baseURL : url,
