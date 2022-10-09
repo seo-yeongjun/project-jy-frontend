@@ -7,9 +7,12 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import {useEffect, useRef} from "react";
 import axios from "../api/axios";
 
-export default function ToastEditor({setContent,memberId}) {
+export default function ToastEditor({setContent, memberId, content}) {
     const editorRef = useRef();
 
+    useEffect(() => {
+        editorRef.current.getInstance().setHTML(content); //초기화
+    },[content,editorRef])
     const handleEditorChange = () => {
         const data = editorRef.current.getInstance().getHTML();
         setContent(data)
@@ -21,7 +24,7 @@ export default function ToastEditor({setContent,memberId}) {
             editorRef.current
                 .getInstance()
                 .addHook("addImageBlobHook", (blob, callback) => {
-                    if(blob.size > 1024 * 1024 * 10){
+                    if (blob.size > 1024 * 1024 * 10) {
                         alert("10MB 이하의 이미지만 업로드 가능합니다.")
                         return;
                     }

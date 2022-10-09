@@ -8,7 +8,7 @@ const NotFound = () => {
     return (
         <div className="bg-white bg-opacity-70 py-5">
             <div className="flex flex-col justify-items-center items-center">
-                <img src="/img/logo-width.svg" alt="logo"/>
+                <img src="https://remembermedisk.s3.ap-northeast-2.amazonaws.com/skhubookStatic/img/logo-width.svg" alt="logo"/>
                 <div className="w-full">
                     <div className='bg-white pb-10 mb-4'>
                         <h1 className="text-[8rem]">404</h1>

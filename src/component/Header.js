@@ -50,7 +50,7 @@ const Header = memo(({isLogin, logoutHandler, setIsVisible, isVisible, member}) 
                     <div className='mobile_upperPart'>
                         <div onClick={() => navigate('/')}>
                             <button>
-                                <img className="logo" src="/img/logo-width.svg" alt="logo"/>
+                                <img className="logo" src="https://remembermedisk.s3.ap-northeast-2.amazonaws.com/skhubookStatic/img/logo-width.svg" alt="logo"/>
                             </button>
                         </div>
 
@@ -95,7 +95,7 @@ const Header = memo(({isLogin, logoutHandler, setIsVisible, isVisible, member}) 
                 <div>
                     <div className="header">
                         <div>
-                            <button onClick={() => navigate('/')}><img className="logo" src="/img/logo-width.svg"
+                            <button onClick={() => navigate('/')}><img className="logo" src="https://remembermedisk.s3.ap-northeast-2.amazonaws.com/skhubookStatic/img/logo-width.svg"
                                                                        alt="logo"/></button>
                         </div>
                         <div className='searchInput'>

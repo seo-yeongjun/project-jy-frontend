@@ -9,7 +9,7 @@ const Footer = () => {
         // Footer Component with logo and social media links
         <div className="footer">
             <div className="footer-logo hover:cursor-pointer" onClick={() => navigate('/')}>
-                <img src="/img/logo-square.svg" alt="logo"/>
+                <img src="https://remembermedisk.s3.ap-northeast-2.amazonaws.com/skhubookStatic/img/logo-square.svg" alt="logo"/>
             </div>
 
             <div className="footer-text">

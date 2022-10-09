@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router";
-import {getSaleList, postSaleComplete, postSaleUpdate} from "../api/sale";
+import {deleteSale, getSaleList, postSaleComplete, postSaleUpdate} from "../api/sale";
 import {threeDaysCheck, timeSince} from "../util/TimeSince";
 
 const HistoryPage = ({member, isLogin}) => {
     const [saleList, setSaleList] = useState([]);
     const [soldOutChange, setSoldOutChange] = useState(false);
     const [updateChange, setUpdateChange] = useState(false);
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,7 +23,7 @@ const HistoryPage = ({member, isLogin}) => {
     }, [isLogin, member.memberId, soldOutChange])
 
     useEffect(() => {
-        if(updateChange){
+        if (updateChange) {
             window.location.reload()
         }
     }, [updateChange])
@@ -35,6 +34,12 @@ const HistoryPage = ({member, isLogin}) => {
 
     const handleUpdate = (id) => {
         postSaleUpdate(id, member.memberId, setUpdateChange)
+    }
+
+    const handleDelete = (id) => {
+        if (window.confirm('정말 삭제하시겠습니까?')) {
+            deleteSale(id, member.memberId)
+        }
     }
 
     return (
@@ -74,10 +79,18 @@ const HistoryPage = ({member, isLogin}) => {
                                                 className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 text-white my-2 hover:bg-amber-300'>다시
                                             판매</button>
                                         : <button onClick={() => handleSoldOut(sale.id)}
-                                                  className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 text-white my-2 hover:bg-amber-300'>거래
+                                                  className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 text-white mt-2 hover:bg-amber-300'>거래
                                             완료</button>
                                     }
-                                    {!sale.soldOut && threeDaysCheck(sale.date) ? <button onClick={()=>handleUpdate(sale.id)} className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 text-white hover:bg-amber-300'>재등록</button> : ''}
+                                    {!sale.soldOut && threeDaysCheck(sale.date) ?
+                                        <button onClick={() => handleUpdate(sale.id)}
+                                                className='rounded p-0.5 bg-amber-500 opacity-70 py-1 mt-2 px-1 text-white hover:bg-amber-300'>재등록</button> : ''}
+                                    <button onClick={() => navigate('/saleBook/update/' + sale.id)}
+                                            className='rounded p-0.5 bg-amber-500 opacity-70 py-1 px-1 mt-2 text-white hover:bg-amber-300'>수정
+                                    </button>
+                                    <button onClick={() => handleDelete(sale.id)}
+                                            className='rounded p-0.5 bg-red-500 opacity-70 py-1 px-1 mt-2 text-white hover:bg-red-300'>삭제
+                                    </button>
                                 </div>
                             </div>
                         </div>
