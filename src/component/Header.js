@@ -55,7 +55,7 @@ const Header = memo(({isLogin, logoutHandler, setIsVisible, isVisible, member}) 
                         </div>
 
                         <div className='mobile_userSection'>
-                            {isLogin && <button onClick={() => navigate('/profile')} className='flex items-center'>
+                            {isLogin && <button onClick={() => navigate('/profile')} className='flex items-center mr-2'>
                                 <img className="userIcon hover:cursor-pointer hover:text-white"
                                      src="/img/pngwing.com.svg" alt="userIcon"/>
                                 <span className='text-sm'>  {member.nickname}님</span>
@@ -110,7 +110,7 @@ const Header = memo(({isLogin, logoutHandler, setIsVisible, isVisible, member}) 
                             <div className='userSection'>
                                 {isLogin &&
                                     <button onClick={() => navigate('/profile')}
-                                            className='flex items-center hover:cursor-pointer hover:text-white'>
+                                            className='flex items-center hover:cursor-pointer mr-2 hover:text-white'>
                                         <img className="userIcon" src="/img/pngwing.com.svg" alt="userIcon"/>
                                         <span className='text-sm'>  {member.nickname}님</span>
                                     </button>}
